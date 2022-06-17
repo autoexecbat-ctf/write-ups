@@ -9,9 +9,9 @@
 
 | ID | Name | Category | Points | Write-up |
 | --- | --- | --- | --- | --- |
-| 17 | 最難行的路 / The Hardest Path | Reverse, Misc | 300 | [Link](17-the-hardest-path/) |
-| 37 | 暈暈陀陀 1 / CTF Tuning Master (Read) | Web, Misc | 150 | [Link](37-ctf-tuning-master-read/) |
-| 53 | 無門 / Doorless 1 | Forensics | 100 | [Link](53-doorless-1/) |
-| 55 | 塵 / Positron | Web, Pwn, Browser, Misc, Reverse, Crypto | 400 | [Link](55-positron/) |
-| 64 | 荊棘海 / The Wilderness | Web | 100 | [Link](64-the-wilderness/) |
-| 72 | 中二病人 / A Junior Mathematician | Reverse | 350 | [Link](72-a-junior-mathematician/) |
+| 17 | 最難行的路 / The Hardest Path | Reverse, Misc | 300 | [Link](hkcertctf2021/17-the-hardest-path/) |
+| 37 | 暈暈陀陀 1 / CTF Tuning Master (Read) | Web, Misc | 150 | [Link](hkcertctf2021/37-ctf-tuning-master-read/) |
+| 53 | 無門 / Doorless 1 | Forensics | 100 | [Link](hkcertctf2021/53-doorless-1/) |
+| 55 | 塵 / Positron | Web, Pwn, Browser, Misc, Reverse, Crypto | 400 | [Link](hkcertctf2021/55-positron/) |
+| 64 | 荊棘海 / The Wilderness | Web | 100 | [Link](hkcertctf2021/64-the-wilderness/) |
+| 72 | 中二病人 / A Junior Mathematician | Reverse | 350 | [Link](hkcertctf2021/72-a-junior-mathematician/) |

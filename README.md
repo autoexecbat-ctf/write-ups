@@ -15,3 +15,13 @@
 | 55 | 塵 / Positron | Web, Pwn, Browser, Misc, Reverse, Crypto | 400 | [Link](hkcertctf2021/55-positron/) |
 | 64 | 荊棘海 / The Wilderness | Web | 100 | [Link](hkcertctf2021/64-the-wilderness/) |
 | 72 | 中二病人 / A Junior Mathematician | Reverse | 350 | [Link](hkcertctf2021/72-a-junior-mathematician/) |
+
+## Tenable Capture the Flag 2022
+
+- https://tenable.ctfd.io/
+- https://ctftime.org/event/1668/
+- Thu, 9 Jun. 2022, 12:00 UTC — Mon, 13 Jun. 2022, 12:00 UTC
+
+| ID | Name | Category | Points | Write-up |
+| --- | --- | --- | --- | --- |
+| 59 | Macro Economics | Forensics | 100 | [Link](tenable2022/59-macro-economics/) |

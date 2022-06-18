@@ -24,4 +24,5 @@
 
 | ID | Name | Category | Points | Write-up |
 | --- | --- | --- | --- | --- |
+| 50 | Pride in Stitches | Reverse | 100 -> 200 | [Link](tenable2022/50-pride-in-stitches/) |
 | 59 | Macro Economics | Forensics | 100 | [Link](tenable2022/59-macro-economics/) |

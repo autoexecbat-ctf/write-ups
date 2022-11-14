@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## HKCERT CTF 2022
+
+- HK Cyber Security New Generation CTF Challenge 2022
+- https://ctf.hkcert.org
+- https://ctftime.org/event/1722
+- Fri, 11 Nov. 2022, 10:00 UTC — Sun, 13 Nov. 2022, 10:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| The Math24 Game 2 | Misc | 375 | [Link](hkcertctf2022/the-math24-game-2/) |
+
 ## HKCERT CTF 2021
 
 - HK Cyber Security New Generation CTF Challenge 2021

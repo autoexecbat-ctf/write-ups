@@ -10,6 +10,7 @@
 | Name | Category | Points | Write-up |
 | --- | --- | --- | --- |
 | The Math24 Game 2 | Misc | 375 | [Link](hkcertctf2022/the-math24-game-2/) |
+| Mystiz Can't Code | Crypto | 275 | [Link](hkcertctf2022/mystiz-cant-code/) |
 
 ## HKCERT CTF 2021
 

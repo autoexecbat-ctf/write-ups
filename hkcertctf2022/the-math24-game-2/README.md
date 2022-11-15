@@ -47,7 +47,7 @@ Given that I didn't have much knowledge about the concrete and detailed implemen
 
 ## Experiment 2 - OCR
 
-Since the number (or character) were what we need, I turned my thought to OCR. I experimented with Tesseract. Directly running `pyTesseract` did not work for the image due to the noises, therefore I experiment with noise cleaning to improve the results:
+Since the numbers (or characters) were what we need, I turned my thought to OCR. I experimented with Tesseract. Directly running `pyTesseract` did not work for the images due to the noises, therefore I experimented with noise cleaning to improve the results:
 
 Raw images:
 
@@ -79,12 +79,12 @@ The next day I woke up, I still wanted to complete it. And I started to think of
 
 While my friend inserted around 150 hashes of the new set of cards, I hoped to explore the possibility to record a significant enough portion of the card deck.
 
-Although some of the cards were not in the hash, I could enter it on the fly and had the script saved the new hash. If I was luckily, I might be able to enter half of the cards for a sufficiently fast game-playing speed.
+Although some of the cards were not in the hash, I could enter it on the fly and had the script saved the new hash. If I was lucky, I might be able to enter half of the cards for a sufficiently fast game-playing speed.
 
-The result?
+The results?
 
 - The amount of hashes growed quickly, with most of the cards still unrecognized at the 800 mark, implying that there were hardly duplicates. The card set seemed to be huge.
-- This was the first time I tried this method. Although this had proved that the hash method did not work, I observed that I still got over 2300 coins at the end of the 15 minutes. I even spent some time debugging the program when the script encountered error upon the 101th game!
+- This was the first time I tried this method. Although this had proved that the hash method did not work, I observed that I still got over 2300 coins at the end of the 15 minutes. I even spent some time debugging the program when the script encountered error upon the 102th game!
 
 Why not speed up this manual recognition process to get to 2700 coins?
 
@@ -102,7 +102,9 @@ I also calculated the required speed for this method:
 
 Let's start:
 
-(TODO: insert gif here)
+(This was my other try after the contest. I could reliably got over 2700 coins within the time limit despite it's not easy.)
+
+![Solving screen capture](solving.gif)
 
 During the contest, I got 2900 coins when there were 30 seconds left. I was so excited and I went to the shop and crafted for the flag.
 

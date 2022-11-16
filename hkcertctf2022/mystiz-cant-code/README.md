@@ -59,8 +59,6 @@ def encrypt_block(self, plaintext):
         # correct code
         # add_round_key(plain_state, self._key_matrices[i])
         ###################### The Bug ######################
-        # this loop-independent logic is put inside the loop
-        # only for easier comparison
         add_round_key(plain_state, self.m)
         #####################################################
 

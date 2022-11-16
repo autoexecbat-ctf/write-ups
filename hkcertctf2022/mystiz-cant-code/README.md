@@ -85,9 +85,6 @@ def decrypt_block(self, ciphertext):
     # correct code
     # add_round_key(cipher_state, self._key_matrices[-1])
     ###################### The Bug ######################
-    # this lazy implementation requires the encrypt
-    # version of the same block is run immediately before
-    # to ensure self.m is correct
     add_round_key(cipher_state, self.m)
     #####################################################
 

@@ -217,7 +217,11 @@ for r1 in chars:
 
 ```
 
-It looks like there are numerous keys which could decrypt the flag per block. So I went on decrypting each block individually, while trying to exclude the bytes position that have been used in previous blocks, and eventually got the flag.
+It looks like there are numerous keys which could decrypt the flag per block. So I went on decrypting each block individually, while trying to exclude the bytes position that have been used in previous blocks, and eventually got the flag: `hkcert22{pr09r4mm1ng_in_b47ch_1s_s0_d1fficul7_4nd_why_d03s_th1n9s_1n_br4ck3t_run5_in_p4ral13l}`.
 
 ## Final Words
-At the time of writing, I still could not understand the bug of the batch implementation `j = 16 * round_id + i` while `i` did change inside the loop -- is there strange behaviour about loops in batch? [Update: this link probably helps -- using `!j!` instead of `%j%`](https://stackoverflow.com/questions/13805187/how-to-set-a-variable-inside-a-loop-for-f)
+At the time of writing, I still could not understand the bug of the batch implementation `j = 16 * round_id + i` while `i` did change inside the loop -- is there strange behaviour about loops in batch?
+
+Update: [This link](https://stackoverflow.com/questions/13805187/how-to-set-a-variable-inside-a-loop-for-f) probably helps, indicating the code should:
+- using `!j!` instead of `%j%`,
+- there is something related to running things in parallel as the flag hinted.

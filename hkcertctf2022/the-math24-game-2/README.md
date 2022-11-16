@@ -1,53 +1,57 @@
-# The Math24 Game 2 雷生春堂
+# The Math24 Game 2
 
 ## Objective
 
-While in game 1 we were only required to craft one flag, in game 2 both a flag and a pole were required.
+While in game 1 I was only required to craft one flag, in game 2 both a flag and a pole were required.
 
-If we played the game for real, we would need 2700 coins to achieve that.
+If I played the game for real, we would need 2700 coins to achieve that.
 
-## What we learned from Game 1
+Playing it manually on snap was obviously infeasible.
 
-- snap game
-- HTTP Requests involved
-    - `gameNew`
-    - `gameAnswer`
+I also learned from game 1 about the HTTP requests to and from the API server for the interactions of the games.
+That meant it would be possible to play the game from scripts instead of from the GUI.
 
-## Whether the methodology from Game 1 applies to Game 2?
+## The warm-up stage
 
-- mathematically not working
-- the category of the challenge is misc, not web
+Math24 is hosted on UCB's Snap platform, fork of MIT's Scratch. Upon looking at the traffic, and the type of image resources were downloaded, I was surprised that I didn't have any images nor values related to the cards downloaded. At closer examination, I realized that the `deck` in the API response was actually containing the images of the playing cards instead.
 
-## First try
+The `deck` seems to have dimensions of 4x37120x4. I figured out it would be a set of 4 cards, with 37120 pixels, and their RGBA values provided.
 
-With a standard deck of cards, there would only be 52 cards, if we could retrieve the image, we can identify which card were provided. With a game24 solver, the game could be solved quickly.
+What I did that time was to use a hash to identify each playing card I saw, and I wrote a simple script to automate the play. At our naïveté, I wrote a script to loop through around 70 of the games to download their deck. For each unique card signature, I used the top left part of the card to compute a SHA256 signature to store within a hash dictionary, manually identify the card, in order to populate the dirty little hash dictionary.
 
-(TODO: insert images)
+A card sample:
 
-Therefore I started parsing the images, recognizing it, and sending back the results to the server.
+![Sample deck card](card-easy.png)
 
-- how an image is represented
-- hash it ("rainbow table")
+The top-left part extracted for hashing:
 
-## The obstacle appears
+![The top left part of the card for hashing](card-easy-top-left.png)
 
-The script was running quickly and smoothly.
+By using a simple script to play my hands, I breezed through the first 1000 points, nice and simple.
 
-While we thought we have completed the challenge, the script failed at the 102th game, where I got 1010 coins.
+But that was where it really got started.
 
-Going back to the snap game, I saw the card images changed: they became blurred, with noises, rotated and sometimes flipped. It was an additional card set not encountered before.
+## The obstacle appeared
+
+The script failed at the 102th game, where I got 1010 coins.
+
+Going back to the snap game, we saw the card images changed: they became blurred, with noises, rotated and sometimes flipped. It was an additional card set not encountered before.
 
 ![Samples of harder cards](hard-card-samples.png)
 
+The hash no longer worked because it appeared to have many different images: 150 more hashes were added but hardly any duplicates were found.
+
+Since this challenge was labelled as a "misc" challenge, not a "web" challenge, we tried to find ways to identify the card value.
+
 ## Experiment 1 - Machine learning
 
-The first thought that came into my mind is machine learning.
+The first thought that came into our mind is machine learning.
 
 Given that I didn't have much knowledge about the concrete and detailed implementation of machine learning, I experimented a little bit with tensorflow with existing trained dataset, but didn't manage to get any meaningful results.
 
 ## Experiment 2 - OCR
 
-Since the numbers (or characters) were what we need, I turned my thought to OCR. I experimented with Tesseract. Directly running `pyTesseract` did not work for the images due to the noises, therefore I experimented with noise cleaning to improve the results:
+As the numbers (or characters) were what we need, I turned my thought to OCR. I experimented with Tesseract. Directly running `pyTesseract` did not work for the images due to the noises, therefore I experimented with noise cleaning to improve the results:
 
 Raw images:
 
@@ -61,13 +65,13 @@ While it successfully detected easy cases, it still did not work out for most of
 
 ## Experiment 3 - Matching corner image pattern
 
-Since the image source is essentially the same set as mentioned in the credits page of the game, I turned to the idea to match the corner part of the image manually.
+Given the image source is essentially the same set as mentioned in the credits page of the game, I then tried to match the corner part of the image manually.
 
 ![Corner images](corners.png)
 
 With the cleaned images, I could try to match it with the different card corners to find the closest match, considering rotation and flipping.
 
-However, a quick test showed that the parsing speed would be too slow (slower than playing by hand).
+However, a quick test showed that the parsing speed would be too slow (slower than playing the game by hand).
 
 ## Ready to give up
 
@@ -75,9 +79,9 @@ With all the hours I spent struggling with this challenge, I was ready to give u
 
 The next day I woke up, I still wanted to complete it. And I started to think of other ways (aka more stupid ways) to complete it.
 
-## Experiment 4 - Building a larger rainbow hash
+## Experiment 4 - Building a larger hash table
 
-While my friend inserted around 150 hashes of the new set of cards, I hoped to explore the possibility to record a significant enough portion of the card deck.
+While my friend inserted around 150 hashes (before giving up) of the new set of cards, I hoped to explore the possibility to record a significant enough portion of the card deck.
 
 Although some of the cards were not in the hash, I could enter it on the fly and had the script saved the new hash. If I was lucky, I might be able to enter half of the cards for a sufficiently fast game-playing speed.
 
@@ -96,26 +100,24 @@ I did two improvements:
 
 2. While still not too convinced (aka lazy) to find and implement a complete 24 solver, I went on to add a few more formula on solving to increase the chance to find a 24 solution. (In case it failed and I got close to 2700 coins, I could still improve the 24 solver by implementing a complete one)
 
-I also calculated the required speed for this method:
+I also calculated the required speed for this method so I could have an idea about how fast I needed to be:
 - First 100 games require 1.5 to 2 minutes
 - With 13 minutes left, we need to solve 170 more games, it means that on average one win is required per 13 * 60 / 170 = 4.5 seconds
 
 Let's start:
 
-(This was my other try after the contest. I could reliably got over 2700 coins within the time limit despite it's not easy.)
+(This was my other try after the contest. I could reliably got over 2700 coins within the time limit, thank to the author `@apple` for not making this game too hard!)
 
 ![Solving screen capture](solving.gif)
 
 During the contest, I got 2900 coins when there were 30 seconds left. I was so excited and I went to the shop and crafted for the flag.
 
-For me, it became a visual recognition and a typing speed test, on top of some HTTP request handling, image parsing/displaying, and a simple naive "game 24" solver.
+![Flag is crafted](flag.png)
 
-Machine-learning assisted? Wahaha! I didn't use ML.
+Machine-learning-assisted treasure hunt? Wahaha! I didn't use ML...
 
-## Post mortem?
+## Final Words
 
-I didn't believe it is the intended solution because the timing is tight, and it was like doing the recognition manually, utilizing my visual recognition and typing speed.
+This challenge became a visual recognition and a typing speed test for me, on top of some HTTP request handling, image parsing/displaying, and a simple naive "game 24" solver. I didn't believe this was the intended solution because the timing was tight.
 
-I was a little bit shocked when I heard that machine learning was the intended solution. It simply showed that I am still a novice ctf player.
-
-And it is time to learn more about machine learning.
+I might be the only one to solve this challenge without machine learning. When I heard after the CTF ended that machine learning was the intended solution, I knew it is time for me to learn about it in more details.

@@ -9,8 +9,9 @@
 
 | Name | Category | Points | Write-up |
 | --- | --- | --- | --- |
-| The Math24 Game 2 | Misc | 375 | [Link](hkcertctf2022/the-math24-game-2/) |
-| Mystiz Can't Code | Crypto | 275 | [Link](hkcertctf2022/mystiz-cant-code/) |
+| The Math24 Game 2 / 雷生春堂 | Misc | 375 | [Link](hkcertctf2022/the-math24-game-2/) |
+| Mystiz Can't Code / 亞洲協會香港中心 | Crypto | 275 | [Link](hkcertctf2022/mystiz-cant-code/) |
+| Ring / 香港回歸紀念塔 | Reverse | 150 | [Link](hkcertctf2022/ring/) |
 
 ## HKCERT CTF 2021
 

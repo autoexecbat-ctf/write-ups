@@ -1,0 +1,192 @@
+---
+title: "Ring (HKCERT CTF 2022) Write-up, for O0031 (AUTOEXEC.BAT)"
+output: md_document
+date: "2022-11-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Ring
+
+> Ring ring ring ring ring ring ring banana phone
+> - @ozetta
+
+## Question
+
+This is the entirety of `Ring.R`:
+
+```
+Ring <- function(p){
+  tryCatch(
+  expr = {
+    x <- 1:17
+    y <- utf8ToInt(p)
+    z <- lm(y ~ poly(x,16))
+    u <- as.numeric(summary(z)$coefficients[,1])
+    v <- c(94.8823529411764923, -8.0697024752598967, -8.6432639293214333, 
+            3.8067684547541667, -2.6157531995857521, 39.7193457764808500, 14.9176635631982180, 
+           14.3308668599120725, 43.6042210530751291, 37.5259918448356302, 
+            4.0314998333763086,  5.1052914400636569,  1.8689828029874489, 13.7270919105349307, 
+           12.8538529135203099,  7.1197700159123247, 10.2656771598556720)
+    if(identical(u, v)){
+      print(sprintf("hkcert22{%s}", sprintf(p, "ReveRseengineeRing")))
+    }else{
+      stop()
+    }
+  },
+  error = function(e){
+    print("Wrong Password")
+  },
+  warning = function(w){
+    print("Wrong Password")
+  })
+}
+Ring(readline(prompt="Enter Password: "))
+```
+
+So, we basically have to reverse-engineer a set of 17 characters in the
+printable ASCII range, so that when running a LM upon, we would get the given
+coefficient `v`.
+
+## Solution
+
+Literally just two weeks ago (really!), I learned from a stats course about
+`optim` and `optimize` functions in R, which sounds like the perfect approach.
+
+We used the [SSE](https://en.wikipedia.org/wiki/Residual_sum_of_squares) to
+measure how close our answer is to the flag.
+
+For initial values, we chose 85, because it is a midpoint between 48 (`0`) and
+122 (`z`), which we had confidence that most of the letters of the flag are
+nearby.
+
+Let's give it a quick shot:
+
+```{r}
+fn <- function (y) {
+  x <- 1:17
+  z <- lm(y ~ poly(x,16))
+  u <- as.numeric(summary(z)$coefficients[,1])
+  v <- c(94.8823529411764923, -8.0697024752598967, -8.6432639293214333, 
+         3.8067684547541667, -2.6157531995857521, 39.7193457764808500, 14.9176635631982180, 
+         14.3308668599120725, 43.6042210530751291, 37.5259918448356302, 
+         4.0314998333763086,  5.1052914400636569,  1.8689828029874489, 13.7270919105349307, 
+         12.8538529135203099,  7.1197700159123247, 10.2656771598556720)
+  sum((u-v) ** 2)
+}
+
+optim_fn <- function (init) {
+  res <- optim(init, fn, control = c(maxit = 10000, abstol = 0.1))
+  res$par
+}
+
+score_par <- function (par) {
+  print(par)
+  print(fn(par))
+  print(intToUtf8(round(par)))
+}
+```
+
+```{r}
+par1 <- optim_fn(rep(c(85), 17))
+score_par(par1)
+```
+
+Looks promising, but not close enough. So let's re-run it with rounded values,
+since we know the source strings are represented in integers anyways.
+
+```{r}
+par2 <- optim_fn(round(par1))
+score_par(par2)
+```
+
+```{r}
+par3 <- optim_fn(round(par2))
+score_par(par3)
+```
+
+```{r}
+par4 <- optim_fn(round(par3))
+score_par(par4)
+```
+
+```{r}
+par5 <- optim_fn(round(par4))
+score_par(par5)
+```
+
+At this point here a few iterations down the road, we also tried to impose a
+penalty to encourage the optimizer to give us values closer to integer values.
+
+```{r}
+fn_penalized <- function (y) {
+  x <- 1:17
+  z <- lm(y ~ poly(x,16))
+  u <- as.numeric(summary(z)$coefficients[,1])
+  v <- c(94.8823529411764923, -8.0697024752598967, -8.6432639293214333, 
+         3.8067684547541667, -2.6157531995857521, 39.7193457764808500, 14.9176635631982180, 
+         14.3308668599120725, 43.6042210530751291, 37.5259918448356302, 
+         4.0314998333763086,  5.1052914400636569,  1.8689828029874489, 13.7270919105349307, 
+         12.8538529135203099,  7.1197700159123247, 10.2656771598556720)
+  sum((u-v) ** 2) + (sum((y - round(y) ** 2)) * 1e2)
+}
+
+optim_fn_penalized <- function (init) {
+  res <- optim(init, fn_penalized, control = c(maxit = 10000, abstol = 0.1))
+  res$par
+}
+```
+
+Also, from the original question, we believed that there should be a `%s`
+somewhere in the string that we are finding. Since `%` is 37 and `s` is 115, we
+think it is most probable for those to be the 16th and 17th characters.
+
+Let's try again.
+
+```{r}
+round_with_fixed_suffix <- function (par) {
+  par[16] <- 37  # `%`
+  par[17] <- 115 # `s`
+  round(par)
+}
+par6 <- optim_fn_penalized(round_with_fixed_suffix(par5))
+score_par(par6) # the score pumped because we are scoring with `fn`
+```
+We also tried alternating between the penalized function and the unpenalized
+functions to hopefully finding a value that converges towards the flag.
+
+```{r}
+par7 <- optim_fn(round_with_fixed_suffix(par6))
+score_par(par7)
+```
+
+```{r}
+par8 <- optim_fn_penalized(round_with_fixed_suffix(par7))
+score_par(par8)
+```
+This looks super promising, since there is a `%s` at the end after running it.
+Let's try to optimize with `fn` once more:
+
+```{r}
+par9 <- optim_fn(round_with_fixed_suffix(par8))
+score_par(par9)
+```
+Aha! Just to confirm:
+
+```{r}
+score_par(round(par9))
+```
+The numbers are not being completely aligned, but we knew we found our
+jackpot. Let's try the flag out:
+
+```{r}
+p <- 'RegreSSSionMean%s'
+sprintf("hkcert22{%s}", sprintf(p, "ReveRseengineeRing"))
+```
+
+Yay!
+
+Gotta love the upcoming stats courses a bit more. But before that, back to my
+weekly lab assignments (ergh).

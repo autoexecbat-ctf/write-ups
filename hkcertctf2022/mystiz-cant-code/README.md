@@ -220,4 +220,4 @@ for r1 in chars:
 It looks like there are numerous keys which could decrypt the flag per block. So I went on decrypting each block individually, while trying to exclude the bytes position that have been used in previous blocks, and eventually got the flag.
 
 ## Final Words
-At the time of writing, I still could not understand the bug of the batch implementation `j = 16 * round_id + i` while `i` did change inside the loop -- is there strange behaviour about loops in batch?
+At the time of writing, I still could not understand the bug of the batch implementation `j = 16 * round_id + i` while `i` did change inside the loop -- is there strange behaviour about loops in batch? [Update: this link probably helps -- using `!j!` instead of `%j%`](https://stackoverflow.com/questions/13805187/how-to-set-a-variable-inside-a-loop-for-f)

@@ -4,7 +4,7 @@
 
 While in game 1 I was only required to craft one flag, in game 2 both a flag and a pole were required.
 
-If I played the game for real, we would need 2700 coins to achieve that.
+If I played the game for real, we would need 2610 coins to achieve that.
 
 Playing it manually on snap was obviously infeasible.
 
@@ -90,7 +90,7 @@ The results?
 - The amount of hashes growed quickly, with most of the cards still unrecognized at the 800 mark, implying that there were hardly duplicates. The card set seemed to be huge.
 - This was the first time I tried this method. Although this had proved that the hash method did not work, I observed that I still got over 2300 coins at the end of the 15 minutes. I even spent some time debugging the program when the script encountered error upon the 102th game!
 
-Why not speed up this manual recognition process to get to 2700 coins?
+Why not speed up this manual recognition process to get to 2610 coins?
 
 ## Final experiment - "image recognition" done in real time by human
 
@@ -98,15 +98,15 @@ I did two improvements:
 
 1. Previously the manual recognition operated on a card-by-card basis. When a card was not recognized, it (only one card) showed up on my screen, and I entered the value of that card. Given that the hash method had been proved not working, I could instead show all the 4 cards on the screen at once, such that I could enter the 4 numbers in one go. It would a) eliminate the refreshing time, and b) reduce the human card parsing and typing time by processing as batches of 4 cards.
 
-2. While still not too convinced (aka lazy) to find and implement a complete 24 solver, I went on to add a few more formula on solving to increase the chance to find a 24 solution. (In case it failed and I got close to 2700 coins, I could still improve the 24 solver by implementing a complete one)
+2. While still not too convinced (aka lazy) to find and implement a complete 24 solver, I went on to add a few more formula on solving to increase the chance to find a 24 solution. (In case it failed and I got close to 2610 coins, I could still improve the 24 solver by implementing a complete one)
 
 I also calculated the required speed for this method so I could have an idea about how fast I needed to be:
 - First 100 games require 1.5 to 2 minutes
-- With 13 minutes left, we need to solve 170 more games, it means that on average one win is required per 13 * 60 / 170 = 4.5 seconds
+- With 13 minutes left, we need to solve 160 more games, it means that on average one win is required per 13 * 60 / 160 = 4.8 seconds
 
 Let's start:
 
-(This was my other try after the contest. I could reliably got over 2700 coins within the time limit, thank to the author `@apple` for not making this game too hard!)
+(This was my other try after the contest. I could reliably got over 2610 coins within the time limit, thank to the author `@apple` for not making this game too hard!)
 
 ![Solving screen capture](solving.gif)
 

@@ -12,6 +12,7 @@
 | The Math24 Game 2 / 雷生春堂 | Misc | 375 | [Link](hkcertctf2022/the-math24-game-2/) |
 | Mystiz Can't Code / 亞洲協會香港中心 | Crypto | 275 | [Link](hkcertctf2022/mystiz-cant-code/) |
 | Ring / 香港回歸紀念塔 | Reverse | 150 | [Link](hkcertctf2022/ring/) |
+| Slow Keystream | Crypto | 400 | [Link](hkcertctf2022/slow-keystream/) |
 
 ## HKCERT CTF 2021
 

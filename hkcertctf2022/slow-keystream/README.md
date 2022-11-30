@@ -1,4 +1,9 @@
 # Slow Keystream
+## Background
+I did not manage to solve this challenge during the competition, I only let the script run throughout the 2-day period and got the first 40 characters of the flag only. At that time my teammate found the random algorithm code for me but I did not dig in detail and think of way to skip the iteration.
+
+Now the reason I retry this challenge is, when I joined another CTF competition recently, I encountered a linear congruential generator (LCG) which I thought about using matrix to solve (which is incorrect actually). Then I also recalled in the discord channel someone mentioned using matrix for this challenge, although there was not a proper write-up thread for this challenge in discord. So I decided to give it a try after that CTF competition, as a journey to try dealing with all crypto challenges in CTF!
+
 ## Quick Glance
 There is a Golang script `flag.go` with its executable `flag` which reads the encrypted flag from `flag.enc` and decrypt the flag and print out to the console. By running, it starts to print the flag character by character, but it is getting slower and slower. After `hkcert22{y0u_c4n_n4vig4t3_r4nd0`, it starts to take minutes to get a single character, and obviously would take hours and subsequently days to complete. Therefore the goal is to shorten the decryption process.
 
@@ -79,6 +84,8 @@ Simply build the matrix as below, where rvec<sub>n</sub> = M<sup>n</sup> rvec<su
 
 ## Getting the flag
 It now only takes around 6 minutes to complete the decryption process. Yay.
+
+During writing this code, I spent some time to figure out what's wrong with the seemingly obviously correct code `flag += xor(flag_enc[i], num % 256)`. I didn't expect the modulus would give error as mentioned in this thread so I was very suprised when I saw `int(np.uint64(3850181338984981652)) % 256` gives the correct value 148 but `np.uint64(3850181338984981652) % 256` gives `0.0`. This bug is still open as this [issue(https://github.com/numpy/numpy/issues/12525)]. Overall this challenge isn't that difficult for me....well...
 ```Python
 import numpy as np
 from pwn import xor

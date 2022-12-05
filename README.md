@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## TUCTF 2022
+
+- TU CTF 2022
+- https://tuctf.com/
+- https://ctftime.org/event/1830
+- Fri, 02 Dec. 2022, 17:00 UTC — Sun, 04 Dec. 2022, 17:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Laundry Day | Reverse | 488 | [Link](tuctf2022/laundry-day/) |
+
 ## HKCERT CTF 2022
 
 - HK Cyber Security New Generation CTF Challenge 2022

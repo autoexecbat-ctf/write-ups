@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## idekCTF 2022
+
+- idekCTF 2022
+- https://ctf.idek.team/
+- https://ctftime.org/event/1839
+- Fri, 13 Jan. 2023, 22:00 UTC — Sun, 15 Jan. 2023, 22:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Cleithrophobia | Crypto | 472 | [Link](idek2022/cleithrophobia/) |
+
 ## TUCTF 2022
 
 - TU CTF 2022
@@ -25,6 +36,18 @@
 | Ring / 香港回歸紀念塔 | Reverse | 150 | [Link](hkcertctf2022/ring/) |
 | Slow Keystream | Crypto | 400 | [Link](hkcertctf2022/slow-keystream/) |
 
+## Tenable Capture the Flag 2022
+
+- https://tenable.ctfd.io/
+- https://ctftime.org/event/1668/
+- Thu, 9 Jun. 2022, 12:00 UTC — Mon, 13 Jun. 2022, 12:00 UTC
+
+| ID | Name | Category | Points | Write-up |
+| --- | --- | --- | --- | --- |
+| 9 | Optical Character Frustration | Stego | 200 | [Link](tenable2022/9-optical-character-frustration/) |
+| 50 | Pride in Stitches | Reverse | 100 -> 200 | [Link](tenable2022/50-pride-in-stitches/) |
+| 59 | Macro Economics | Forensics | 100 | [Link](tenable2022/59-macro-economics/) |
+
 ## HKCERT CTF 2021
 
 - HK Cyber Security New Generation CTF Challenge 2021
@@ -40,15 +63,3 @@
 | 55 | 塵 / Positron | Web, Pwn, Browser, Misc, Reverse, Crypto | 400 | [Link](hkcertctf2021/55-positron/) |
 | 64 | 荊棘海 / The Wilderness | Web | 100 | [Link](hkcertctf2021/64-the-wilderness/) |
 | 72 | 中二病人 / A Junior Mathematician | Reverse | 350 | [Link](hkcertctf2021/72-a-junior-mathematician/) |
-
-## Tenable Capture the Flag 2022
-
-- https://tenable.ctfd.io/
-- https://ctftime.org/event/1668/
-- Thu, 9 Jun. 2022, 12:00 UTC — Mon, 13 Jun. 2022, 12:00 UTC
-
-| ID | Name | Category | Points | Write-up |
-| --- | --- | --- | --- | --- |
-| 9 | Optical Character Frustration | Stego | 200 | [Link](tenable2022/9-optical-character-frustration/) |
-| 50 | Pride in Stitches | Reverse | 100 -> 200 | [Link](tenable2022/50-pride-in-stitches/) |
-| 59 | Macro Economics | Forensics | 100 | [Link](tenable2022/59-macro-economics/) |

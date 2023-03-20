@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## WolvCTF 2023
+
+- WolvCTF 2023
+- https://wolvctf.io/
+- https://ctftime.org/event/1866
+- Fri, 17 Mar. 2023, 20:00 UTC — Sun, 19 Mar. 2023, 20:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| ej | Reverse | 495 | [Link](wolvctf2023/ej/) |
+
 ## idekCTF 2022
 
 - idekCTF 2022

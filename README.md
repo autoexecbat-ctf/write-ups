@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## UMDCTF 2023
+
+- UMDCTF 2023
+- https://umdctf.io/
+- https://ctftime.org/event/1949
+- Fri, 28 Apr. 2023, 22:00 UTC — Mon, 1 May 2023, 01:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| YARA Trainer Gym | Forensics | 427 | [Link](umdctf2023/yara-trainer-gym/) |
+
 ## WolvCTF 2023
 
 - WolvCTF 2023

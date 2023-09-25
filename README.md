@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## Asis CTF Quals 2023
+
+- ASIS CTF Quals 2023
+- https://asisctf.com/
+- https://ctftime.org/event/1952
+- Fri, 22 Sept. 2023, 14:30 UTC — Sat, 23 Sept. 2023, 14:30 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Packtom | Crypto | 334 | [Link](asisctfquals2023/packtom/) |
+
 ## UMDCTF 2023
 
 - UMDCTF 2023

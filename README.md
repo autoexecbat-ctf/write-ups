@@ -85,3 +85,13 @@
 | 55 | 塵 / Positron | Web, Pwn, Browser, Misc, Reverse, Crypto | 400 | [Link](hkcertctf2021/55-positron/) |
 | 64 | 荊棘海 / The Wilderness | Web | 100 | [Link](hkcertctf2021/64-the-wilderness/) |
 | 72 | 中二病人 / A Junior Mathematician | Reverse | 350 | [Link](hkcertctf2021/72-a-junior-mathematician/) |
+
+## PicoMini by redpwn 2021
+
+- picoCTF 2021 Mini-Competition with repwn
+- https://picoctf.org/competitions/2021-redpwn.html
+- Fri, 7 May 2021 — Mon, 10 May 2021
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| fermat-strings | Pwn | 250 | [Link](picominiredpwn2021/fermat-strings/) |

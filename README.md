@@ -11,6 +11,17 @@
 | --- | --- | --- | --- |
 | Roundabout | Misc | 436 | [Link](tjctf2024/roundabout/) |
 
+## DEF CON CTF Qualifier 2024
+
+- DEF CON CTF Qualifier 2024
+- https://nautilus.institute/
+- https://ctftime.org/event/2229
+- Sat, 4 May 2024, 00:00 UTC — Mon, 6 May 2024, 00:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Hikarrro | Reverse | N/A | [Link](defconctf2024quals/hikarrro/) |
+
 ## Asis CTF Quals 2023
 
 - ASIS CTF Quals 2023

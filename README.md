@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## TJCTF 2024
+
+- TJCTF 2024
+- https://tjctf.org/
+- https://ctftime.org/event/2321
+- Fri, 17 May 2024, 18:30 UTC — Sun, 19 May 2024, 18:30 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Roundabout | Misc | 436 | [Link](tjctf2024/roundabout/) |
+
 ## Asis CTF Quals 2023
 
 - ASIS CTF Quals 2023

@@ -22,6 +22,16 @@
 | --- | --- | --- | --- |
 | Hikarrro | Reverse | N/A | [Link](defconctf2024quals/hikarrro/) |
 
+## ImaginaryCTF Daily Challenges
+
+- ImaginaryCTF Daily Challenges
+- https://imaginaryctf.org/Challenges
+- Apr 2024
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Idle | Pwn | 150 | [Link](imaginaryctf-daily-challenges/idle/) |
+
 ## Asis CTF Quals 2023
 
 - ASIS CTF Quals 2023

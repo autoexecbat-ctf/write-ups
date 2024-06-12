@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## GPN CTF 2024
+
+- GPN CTF 2024
+- https://play.ctf.kitctf.de/
+- https://ctftime.org/event/2257
+- Fri, 31 May 2024, 10:00 UTC — Sat, 1 Jun 2024, 22:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Back to the roots | Crypto | 313 | [Link](gpnctf2024/back-to-the-roots/) |
+
 ## TJCTF 2024
 
 - TJCTF 2024

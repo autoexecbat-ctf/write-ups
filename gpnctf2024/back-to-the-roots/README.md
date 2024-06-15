@@ -50,9 +50,9 @@ or this?
 
 ![Chunk Pattern 2](./offset_2.png)
 
-or both blue (43) chunks? or both green (44) chunks?
+or both blue (length-43) chunks? or both green (length-44) chunks?
 
-To solve it, we try to find for each offset whether it is a possible beginning of a column chunk by checking if we could get the possible matched pattern ID, e.g. for the chunk beginning at index 0, the matched pattern ID is `2`; at index 1, the matched pattern ID is `3`; but at index 7, there is no matched pattern, meaning the column chunks must not begin at index 7.
+To solve it, we try to find for each offset whether it is a possible beginning of a column chunk by checking if we could get the possible matched pattern ID, e.g. for the chunk beginning at index 0, the matched pattern ID is `2`; at index 1, the matched pattern ID is `3`; but at index 7, there is no matched pattern, meaning no column chunks could begin at index 7.
 
 Then we could use any search algorithm to look for possible candidates. For simplicity I used `networkx` library to create a graph network and genereate all paths candidates.
 

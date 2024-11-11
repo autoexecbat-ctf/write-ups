@@ -11,6 +11,7 @@
 | --- | --- | --- | --- |
 | Morph | Reverse | 300 | [Link](hkcertctf2024/morph/) |
 | Crack the Pack (II) | Misc, Crypto | 375 | [Link](hkcertctf2024/crack-the-pack-2/) |
+| Pigeon Post (2) | Crypto | 250 | [Link](hkcertctf2024/pigeon-post-2/) |
 
 ## GPN CTF 2024
 

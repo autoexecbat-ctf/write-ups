@@ -1,5 +1,17 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## HKCERT CTF 2024
+
+- HK Cyber Security New Generation CTF Challenge 2024 (Qualifying Round)
+- https://ctf.hkcert.org
+- https://ctftime.org/event/2455
+- Fri, 8 Nov. 2024, 10:00 UTC — Sun, 10 Nov. 2024, 10:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Morph | Reverse | 300 | [Link](hkcertctf2024/morph/) |
+| Crack the Pack (II) | Misc, Crypto | 375 | [Link](hkcertctf2024/crack-the-pack-2/) |
+
 ## GPN CTF 2024
 
 - GPN CTF 2024

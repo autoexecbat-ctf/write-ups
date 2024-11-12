@@ -22,6 +22,8 @@ The decompiled code from Ida shows that it does a series of `verify` operations,
 
 Perhaps the decompilation fails to shows all the nesting from my default setting. But let's assume it calls the functions in the same way, as suggested by a quick glance through the assembly codes.
 
+_I learned from the write-up discussion that it is due to the `noreturn` attribute resulted from the xor'ed code._
+
 ```cpp
 decompress((char *)verify_0, 86, 50);
   if ( verify_0(&flag) )
@@ -74,18 +76,16 @@ print(bytearray([x^50 for x in b[0x5ae05:0x5ae05+86]]).hex())
 # f30f1efa554889e55348...
 ```
 
-Putting this into online disassembler at https://shell-storm.org, the disassembly code is as below and this is exactly the start of a function call!
+Putting this into the [https://shell-storm.org/online/Online-Assembler-and-Disassembler/](online disassembler), the disassembly code is as below and this is exactly the start of a function call!
 
 ```
-0x0000000000000000:  F3 0F 1E FA    endbr64 
-0x0000000000000004:  55             push    ebp
-0x0000000000000005:  48             dec     eax
-0x0000000000000006:  89 E5          mov     ebp, esp
-0x0000000000000008:  53             push    ebx
-0x0000000000000009:  48             dec     eax
+0x0000000000000000:  F3 0F 1E FA    endbr64
+0x0000000000000004:  55             push    rbp
+0x0000000000000005:  48 89 E5       mov     rbp, rsp
+0x0000000000000008:  53             push    rbx
 ```
 
-This is xor the code inside the binary to restore the function code to be executed.
+Thus this program performs xor on its own code to restore the function code.
 
 ## Patching the binary
 

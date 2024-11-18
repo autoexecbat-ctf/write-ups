@@ -18,7 +18,7 @@ Number of solves: 9
 
 This is the second challenge in the "Crack the Pack" series. While the two challenges are independent of each other, they are similar in nature. Solving the first one allowed me to understand this second one more easily.
 
-In this challenge, we are given two files: a python flag encrypter script and the encrypted output in form of hexadecimal digits.
+In this challenge, we are given two files: a Python flag encrypter script and the encrypted output in the form of hexadecimal digits.
 
 ### Python script
 
@@ -68,9 +68,9 @@ _Only showing the beginning digits_
 
 ## Studying what the encrypter does
 
-The python script does the followings:
+The Python script does the following:
 
-1. Pad the flag length to multiple of 6 with null character
+1. Pad the flag length to a multiple of 6 with the null character
 2. For each chunk of 6 characters, insert two `\xff` bytes, and pad the whole flag with more `\xff` bytes until reaching a length of 960 which will be a multiple of 8
 3. With an initial random 8-byte block, `compress` the block with the subsequent 8 bytes of the flag, where the resulting bytes in offset `[:28:-20]` are used as the encrypted result chunk, as well as the next round's block
 4. Similar to "Crack the Pack (I): Head and Shoulders", the encrypted blocks are shuffled to create the final output. The initial random 8-byte is also included in the output.
@@ -118,7 +118,7 @@ A quick check shows that it is `551e6df8737b672b`.
 
 To be able to solve the challenge, I needed to understand what `[-28:-20]` gives us from the `lzma.compress` function.
 
-From the python documentation, it is creating an xz compressed archive.
+From the Python documentation, it is creating an xz compressed archive.
 
 I then studied the output of the compressed result `output_1`, according to the xz file format. It took me some time reading and interpreting the specification from https://tukaani.org/xz/xz-file-format.txt.
 
@@ -138,7 +138,7 @@ I tried different implementations of the CRC64 available online to realize that 
 
 Once I started bruteforcing, I realized that a full 6-character bruteforce doesn't run fast. Therefore I assumed that only the flag only contains the characters `_0-9a-z`.
 
-With this character set, bruteforcing 5 characters can complete in a reasonable time. 
+With this character set, bruteforcing 5 characters can be completed in a reasonable time. 
 
 The first one is easy because of the known bytes `24{`.
 
@@ -147,13 +147,17 @@ And then the bruteforce went like this:
 - `hkcert`: bruteforce from flag pattern `24{`
 - `hkcert24{tw0`: `two` should be a complete word, thus `_` is likely the next character
 - `hkcert24{tw0_crc32`: for proper grammar `crc32` should have an `s`
-- `hkcert24{tw0_crc32s_n4m3`: first I tried `name_`, `named` and `names` although they don't sound quite right. And then I searched for words that start with `name` and found `l` as a likely character.
+- `hkcert24{tw0_crc32s_n4m3`: first I tried `name_`, `named` and `names` although they don't sound quite right. And then I searched for words that start with `name` on Google and found `l` as a likely character.
 - `hkcert24{tw0_crc32s_n4m3ly_zl1`: surely it refers to the library `zlib` 
-- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_`: with an underscore I struggled for a bit to figure out the next word. And then a google search of "crc32 zlib vs" hinted me for the other package `binascii`.
+- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_`: with an underscore I struggled for a bit to figure out the next word. And then a google search of "crc32 zlib vs" hinted at the other package `binascii`.
 - `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45c`: `i` could be represented as `i` or `1` in leetspeak.
-- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7`: it is likely a `but` however `_` does not give me any results. After a series of other tries, I decided to add upper cases and symbols to it. After an hour I got the result.
-- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7_n0_CR`: it should be either `CRC` or `CRT`. I have no idea because this is labelled as crypto category and I am not familiar with it nor the mechanism of `CRC64`.
-- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7_n0_CRC64_lu`: another point for being stuck. The most likely word I could think of was `luck`, or maybe some words beginning with `lun`, or some other characters. While I was about to give up i.e. running a full bruteforce, I searched again on the words beginning with `lu` and I noticed the `lull`. Let's try `lul`!
+- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7`: it is likely a `but` however `_` does not give me any results. After a series of other tries, I decided to add uppercase characters and symbols to it. After an hour I got the result.
+- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7_n0_CR`: it should be either `CRC` (more likely) or maybe `CRT`?
+- `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7_n0_CRC64_lu`: another point for being stuck. The most likely word I could think of was `luck`, or maybe some words beginning with `lun`, or some other characters. While I was about to give up i.e. running a full bruteforce, I searched again on the words beginning with `lu` at [https://www.merriam-webster.com/wordfinder/classic/begins/all/-1/lu/1](Merriam-Webster) and I noticed the word `lull`. Let's try `lul`!
 - `hkcert24{tw0_crc32s_n4m3ly_zl1b_4nd_b1n45ci1_bu7_n0_CRC64_lul}`
 
 It took me like 2 hours for the whole bruteforce.
+
+While I knew it was certainly not the intended way.
+
+After the contest, my teammate sent me this repository for forging crc64 with a given prefix: [https://github.com/beched/forge-crc64/](https://github.com/beched/forge-crc64/). I think this will be the intended solution.

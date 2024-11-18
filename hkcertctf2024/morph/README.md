@@ -20,7 +20,7 @@ We are given a linux binary, which asks for a serial key, reading it to the `fla
 
 The decompiled code from Ida shows that it does a series of `verify` operations, from 0 onwards. While Ida shows up to `verify_14` in the decompiled code, looking at the function list suggests that `verify` functions exist from 0 to 53, in a shuffled order inside the binary.
 
-Perhaps the decompilation fails to shows all the nesting from my default setting. But let's assume it calls the functions in the same way, as suggested by a quick glance through the assembly codes.
+Perhaps the decompilation fails to show all the nesting from my default setting. But let's assume it calls the functions in the same way, as suggested by a quick glance through the assembly codes.
 
 _I learned from the write-up discussion that it is due to the `noreturn` attribute resulted from the xor'ed code._
 
@@ -61,9 +61,9 @@ void __cdecl decompress(char *memory, int size, char k)
 }
 ```
 
-It is performing an xor operations with constant `k` to the 86 characters starting from `verify_*`.
+It is performing an xor operation with a constant `k` to the 86 characters starting from `verify_*`.
 
-Being new to such kind of setups, I hoped to verify whether the decompressed result looks like a function call in assembly call. With my brother's help, I was able to verify that the decompressed result starts with a function call.
+Being new to such kinds of setups, I hoped to verify whether the decompressed result looks like a function call in an assembly call. With my brother's help, I was able to verify that the decompressed result starts with a function call.
 
 `verify_0` is at position `0x5AE05` in the binary for `decompress((char *)verify_0, 86, 50);`.
 
@@ -93,9 +93,9 @@ Soon after this discovery I realized I could try to patch the binary and re-open
 
 From the pattern of the function calls, it looks like all functions have the same length of 86 bytes but each with a different value for the xor operation.
 
-To find the xor value, I copied the assembly code and locate the codes setting the xor value:
+To find the xor value, I copied the assembly code and located the codes setting the xor value:
 
-_Noteice how there are different forms in the assembly code while it takes only one byte for the xor operations.
+_Notice how there are different forms in the assembly code while it takes only one byte for the xor operations.
 
 `xor.txt`:
 ```

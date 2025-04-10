@@ -8,7 +8,10 @@ This is a really compilcated challenge which I spent more than a day to solve wi
 
 He mentioned it is a rare scenario for the board with these pieces. It is not an easy task for white to checkmate.
 
-The code is too messy right now so I am not putting it here yet. I did upload the pretty formatted version of the minified `play_min.py` as `play.py`.
+The code is too messy but I don't have the intention to clean it. I did upload some scripts:
+1. `play.py`: the pretty formatted version of the minified `play_min.py`.
+2. `find_necessary_hard_AI.py`: which is to get from remote how the hard AI should react at non-typical scenarios, by using DFS to roll back that scenario to one of the possible opening moves.
+3. `play_demo_brute.py`: the actual solve script after knowing how the hard AI moves under some scenarios.
 
 ## AI principle
 There are the files `xy_python.bin` listing out how AI moves when it is one of the 10817184 scenarios. I call it `Easy AI`. It doesn't cover all scenarios. So there is the complicated ELF `thinkingharder` which decides how AI plays when it's not what `Easy AI` can handle. I call this `Hard AI`. It's so difficult to reverse it, to make it worse, I couldn't run it locally. Therefore, I decided to connect to remote to get the result when needed.

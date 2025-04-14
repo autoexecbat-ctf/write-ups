@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## PlaidCTF 2025
+
+- PlaidCTF
+- https://plaidctf.com/
+- https://ctftime.org/event/2508
+- Fri, 4 Apr. 2025, 21:00 UTC — Sun, 6 Apr. 2025, 21:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Hangman (Part 1 & 2) | Misc/Rev/Crypto | 99+201 | [Link](plaidctf2025/hangman/) |
+
 ## HKCERT CTF 2024
 
 - HK Cyber Security New Generation CTF Challenge 2024 (Qualifying Round)

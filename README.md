@@ -1,5 +1,16 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## HKCERT CTF 2025
+
+- HKCERT Capture The Flag 2025 (Qualifying Round)
+- https://ctf.hkcert.org
+- https://ctftime.org/event/2998
+- Fri, 19 Dec. 2024, 08:00 UTC — Sun, 21 Dec. 2024, 08:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| Childcode | Pwn | 909 | [Link](hkcertctf2025/childcode/) |
+
 ## PlaidCTF 2025
 
 - PlaidCTF

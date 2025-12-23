@@ -10,6 +10,7 @@
 | Name | Category | Points | Write-up |
 | --- | --- | --- | --- |
 | Childcode | Pwn | 909 | [Link](hkcertctf2025/childcode/) |
+| renderme | Web | 714 | [Link](hkcertctf2025/renderme/) |
 
 ## PlaidCTF 2025
 

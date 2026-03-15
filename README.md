@@ -1,5 +1,14 @@
 # CTF Write-ups from team AUTOEXEC.BAT
 
+## POlyU x NuttyShell Cybersecurity CTF 2026
+
+- https://ctf.polyuctf.com
+- Fri, 6 Mar. 2026, 12:00 UTC - Sun, 8 Mar. 2026, 12:00 UTC
+
+| Name | Category | Points | Write-up |
+| --- | --- | --- | --- |
+| React2XSS | Web | 495 | [Link](polyuctf2026/react2xss/) |
+
 ## HKCERT CTF 2025
 
 - HKCERT Capture The Flag 2025 (Qualifying Round)

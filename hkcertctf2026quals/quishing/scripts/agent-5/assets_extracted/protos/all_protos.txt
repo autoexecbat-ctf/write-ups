@@ -1,0 +1,1272 @@
+// ===== achievement/v1/achievement_client.proto (package achievement.v1)
+enum SubmitFlagOutcome { SUBMIT_FLAG_OUTCOME_UNSPECIFIED=0; SUBMIT_FLAG_OUTCOME_UNLOCKED=1; SUBMIT_FLAG_OUTCOME_ALREADY_UNLOCKED=2; SUBMIT_FLAG_OUTCOME_NO_MATCH=3; SUBMIT_FLAG_OUTCOME_RATE_LIMITED=4; }
+message AchievementEarnedEvent {
+  message RewardsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message TextEntry {
+    string key = 1;
+    .achievement.v1.AchievementText value = 2;
+  }
+  string achievement_id = 1;
+  repeated .achievement.v1.AchievementEarnedEvent.RewardsEntry rewards = 2;
+  repeated .achievement.v1.AchievementEarnedEvent.TextEntry text = 3;
+}
+message AchievementText {
+  string name = 1;
+  string description = 2;
+}
+message AchievementClientServiceSubmitFlagRequest {
+  string flag = 1;
+}
+message AchievementClientServiceSubmitFlagResponse {
+  message TextEntry {
+    string key = 1;
+    .achievement.v1.AchievementText value = 2;
+  }
+  .achievement.v1.SubmitFlagOutcome outcome = 1;
+  string achievement_id = 2;
+  int32 retry_after_seconds = 3;
+  repeated .achievement.v1.AchievementClientServiceSubmitFlagResponse.TextEntry text = 4;
+}
+message VisibleAchievement {
+  message TextEntry {
+    string key = 1;
+    .achievement.v1.AchievementText value = 2;
+  }
+  message RewardsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message RewardItemsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  string achievement_id = 1;
+  .google.protobuf.Timestamp unlocked_at = 2;
+  float unlock_rate = 3; [oneof _unlock_rate]
+  repeated .achievement.v1.VisibleAchievement.TextEntry text = 4;
+  bool name_masked = 5;
+  bool description_masked = 6;
+  repeated .achievement.v1.VisibleAchievement.RewardsEntry rewards = 7;
+  bool reward_claimed = 8;
+  repeated .achievement.v1.VisibleAchievement.RewardItemsEntry reward_items = 9;
+  string icon_id = 10;
+}
+message ListAchievementsRequest {
+}
+message ListAchievementsResponse {
+  repeated .achievement.v1.VisibleAchievement achievements = 1;
+}
+message ClaimAchievementRewardRequest {
+  string achievement_id = 1;
+}
+message ClaimAchievementRewardResponse {
+  message RewardsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message ItemsEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  repeated .achievement.v1.ClaimAchievementRewardResponse.RewardsEntry rewards = 1;
+  bool already_claimed = 2;
+  repeated .achievement.v1.ClaimAchievementRewardResponse.ItemsEntry items = 3;
+}
+// ===== clientmsg/v1/client_messaging.proto (package clientmsg.v1)
+message RequestMetadata {
+  message Entry {
+    string key = 1;
+    bytes value = 2;
+  }
+  string req_id = 2;
+  string service = 3;
+  string method = 4;
+  repeated .clientmsg.v1.RequestMetadata.Entry rpc_metadata = 5;
+}
+message Request {
+  .clientmsg.v1.RequestMetadata metadata = 1;
+  bytes payload = 2;
+}
+message OutboundMetadata {
+  string req_id = 1;
+  string service = 2;
+  string method = 3;
+  string message_id = 4;
+}
+message Outbound {
+  string kind = 1;
+  .clientmsg.v1.OutboundMetadata metadata = 2;
+  bytes payload = 3;
+  string code = 4;
+}
+// ===== common/v1/common.proto (package common.v1)
+enum SlotKind { SLOT_KIND_BAG=0; SLOT_KIND_EQUIP=1; SLOT_KIND_STASH=2; }
+enum EquipSlot { EQUIP_SLOT_WEAPON=0; EQUIP_SLOT_ARMOR=1; EQUIP_SLOT_TRINKET_A=2; EQUIP_SLOT_TRINKET_B=3; }
+enum ItemType { ITEM_TYPE_WEAPON=0; ITEM_TYPE_ARMOR=1; ITEM_TYPE_CONSUMABLE=2; ITEM_TYPE_TRINKET=3; ITEM_TYPE_ENCHANTMENT=4; ITEM_TYPE_QUEST=5; ITEM_TYPE_MATERIAL=6; ITEM_TYPE_VALUABLE=7; }
+enum ItemRarity { ITEM_RARITY_COMMON=0; ITEM_RARITY_UNCOMMON=1; ITEM_RARITY_RARE=2; ITEM_RARITY_EPIC=3; ITEM_RARITY_LEGENDARY=4; ITEM_RARITY_UNIQUE=5; }
+enum AttributeId { ATTRIBUTE_ID_MIGHT=0; ATTRIBUTE_ID_PRECISION=1; ATTRIBUTE_ID_VITALITY=2; ATTRIBUTE_ID_FORTITUDE=3; ATTRIBUTE_ID_AGILITY=4; }
+enum DamageSource { DAMAGE_SOURCE_WEAPON=0; DAMAGE_SOURCE_PROJECTILE=1; DAMAGE_SOURCE_EXPLOSION=2; DAMAGE_SOURCE_STATUS_EFFECT=3; DAMAGE_SOURCE_ENVIRONMENT=4; DAMAGE_SOURCE_SELF=5; DAMAGE_SOURCE_BEAM=6; DAMAGE_SOURCE_DAMAGE_OVER_TIME=7; }
+enum EnemyActionState { ENEMY_ACTION_STATE_IDLE=0; ENEMY_ACTION_STATE_PATROL=1; ENEMY_ACTION_STATE_CHASE=2; ENEMY_ACTION_STATE_ATTACK=3; ENEMY_ACTION_STATE_DEAD=4; }
+enum EnemyDespawnReason { ENEMY_DESPAWN_REASON_KILLED=0; ENEMY_DESPAWN_REASON_DETONATED=1; ENEMY_DESPAWN_REASON_LEFT_INTEREST=2; }
+enum ProjectileDespawnReason { PROJECTILE_DESPAWN_REASON_LIFETIME=0; PROJECTILE_DESPAWN_REASON_PIERCE_EXHAUSTED=1; PROJECTILE_DESPAWN_REASON_BOUNCE_EXHAUSTED=2; PROJECTILE_DESPAWN_REASON_HIT=3; PROJECTILE_DESPAWN_REASON_BLOCKED_BY_COVER=4; PROJECTILE_DESPAWN_REASON_OWNER_LEFT=5; PROJECTILE_DESPAWN_REASON_CLEARED=6; PROJECTILE_DESPAWN_REASON_LEFT_INTEREST=7; }
+enum LeaveReason { LEAVE_REASON_CLEARED=0; LEAVE_REASON_RETREAT=1; LEAVE_REASON_DEATH=2; LEAVE_REASON_DISCONNECT=3; LEAVE_REASON_EXTRACT=4; }
+enum ChamberStatus { CHAMBER_STATUS_HOSTILE=0; CHAMBER_STATUS_CLEARED=1; }
+enum RouletteBetType { ROULETTE_BET_TYPE_RED=0; ROULETTE_BET_TYPE_BLACK=1; ROULETTE_BET_TYPE_ODD=2; ROULETTE_BET_TYPE_EVEN=3; ROULETTE_BET_TYPE_NUMBER=4; }
+enum BlackjackPhase { BLACKJACK_PHASE_WAITING=0; BLACKJACK_PHASE_PLAYER_TURN=1; BLACKJACK_PHASE_PLAYER_BLACKJACK=2; BLACKJACK_PHASE_PLAYER_WON=3; BLACKJACK_PHASE_DEALER_WON=4; BLACKJACK_PHASE_PUSH=5; }
+message Vec2 {
+  float x = 1;
+  float y = 2;
+}
+message RectInt {
+  int32 x = 1;
+  int32 y = 2;
+  int32 width = 3;
+  int32 height = 4;
+}
+message SlotRef {
+  .common.v1.SlotKind kind = 1;
+  int32 index = 2;
+}
+// ===== game/v1/envelope.proto (package game.v1)
+message ClientHello {
+  uint32 protocol_version = 1;
+}
+message ServerHello {
+  uint32 server_protocol_version = 1;
+  uint32 min_supported_version = 2;
+  string reject_reason = 3; [oneof _reject_reason]
+  string player_id = 4;
+}
+message ServiceCommandEnvelope {
+  .game.v1.InitServiceCommand init_service = 1; [oneof command]
+  .matchmaking.v1.JoinRoomCommand join_room = 2; [oneof command]
+  .matchmaking.v1.CancelJoinCommand cancel_join = 3; [oneof command]
+  .matchmaking.v1.GetActiveRoomCommand get_active_room = 6; [oneof command]
+  .matchmaking.v1.DevForceStartRosterCommand dev_force_start_roster = 100; [oneof command]
+}
+message ServiceEventEnvelope {
+  .matchmaking.v1.ActiveRoomEvent active_room = 1; [oneof event]
+  .matchmaking.v1.QueueRosterChangedEvent queue_roster_changed = 2; [oneof event]
+  .game.v1.AnnouncementEvent announcement = 4; [oneof event]
+  .game.v1.ServiceCommandRejectedEvent service_command_rejected = 6; [oneof event]
+}
+message RoomCommandEnvelope {
+  uint32 input_seq = 1;
+  .room.v1.InitRoomCommand init_room = 2; [oneof command]
+  .room.v1.MoveCommand move = 3; [oneof command]
+  .room.v1.AimCommand aim = 4; [oneof command]
+  .room.v1.FireCommand fire = 5; [oneof command]
+  .room.v1.ReloadCommand reload = 6; [oneof command]
+  .room.v1.UseAbilityCommand use_ability = 7; [oneof command]
+  .room.v1.SwapSlotsCommand swap_slots = 8; [oneof command]
+  .room.v1.DiscardItemCommand discard_item = 9; [oneof command]
+  .room.v1.UseConsumableCommand use_consumable = 10; [oneof command]
+  .room.v1.ConfirmRunEndCommand confirm_run_end = 11; [oneof command]
+  .room.v1.FleeRunCommand flee_run = 12; [oneof command]
+  .room.v1.InteractCommand interact = 13; [oneof command]
+  .room.v1.BuyAttributeRankCommand buy_attribute_rank = 14; [oneof command]
+  .room.v1.SellItemCommand sell_item = 15; [oneof command]
+  .room.v1.EnchantItemCommand enchant_item = 16; [oneof command]
+  .room.v1.CasinoRoulettePlayCommand casino_roulette_play = 17; [oneof command]
+  .room.v1.CasinoBlackjackStartCommand casino_blackjack_start = 18; [oneof command]
+  .room.v1.CasinoBlackjackHitCommand casino_blackjack_hit = 19; [oneof command]
+  .room.v1.CasinoBlackjackStandCommand casino_blackjack_stand = 20; [oneof command]
+  .room.v1.CasinoBlackjackViewCommand casino_blackjack_view = 21; [oneof command]
+  .room.v1.CasinoChipsExchangeCommand casino_chips_exchange = 22; [oneof command]
+  .room.v1.ClaimStarterPistolCommand claim_starter_pistol = 23; [oneof command]
+  .room.v1.UnlockSkillNodeCommand unlock_skill_node = 24; [oneof command]
+  .room.v1.SetSkillVariantCommand set_skill_variant = 25; [oneof command]
+  .room.v1.UpgradeSkillNodeCommand upgrade_skill_node = 26; [oneof command]
+  .room.v1.RespecSkillsCommand respec_skills = 27; [oneof command]
+  .room.v1.UpgradeItemCommand upgrade_item = 28; [oneof command]
+  .room.v1.BuyItemCommand buy_item = 29; [oneof command]
+  .room.v1.RefreshShopCommand refresh_shop = 30; [oneof command]
+  .room.v1.HeartbeatEchoCommand heartbeat_echo = 31; [oneof command]
+  .room.v1.SplitStackCommand split_stack = 38; [oneof command]
+  .room.v1.MergeStacksCommand merge_stacks = 39; [oneof command]
+  .room.v1.StartCraftCommand start_craft = 33; [oneof command]
+  .room.v1.CollectCraftCommand collect_craft = 34; [oneof command]
+  .room.v1.EnterKonamiCodeCommand enter_konami_code = 60; [oneof command]
+  .room.v1.DescendFloorCommand descend_floor = 48; [oneof command]
+  .room.v1.VaultStartCommand vault_start = 40; [oneof command]
+  .room.v1.VaultPlaceCommand vault_place = 41; [oneof command]
+  .room.v1.VaultKnockCommand vault_knock = 42; [oneof command]
+  .room.v1.VaultPassCommand vault_pass = 43; [oneof command]
+  .room.v1.VaultRackCommand vault_rack = 44; [oneof command]
+  .room.v1.VaultBagCommand vault_bag = 45; [oneof command]
+  .room.v1.VaultUnlockCommand vault_unlock = 46; [oneof command]
+  .room.v1.VaultCollectCommand vault_collect = 47; [oneof command]
+  .room.v1.SecretCommTrailPageCommand secret_comm_trail_page = 50; [oneof command]
+  .room.v1.SecretCommTransmitCommand secret_comm_transmit = 51; [oneof command]
+  .room.v1.DevSpawnEnemyCommand dev_spawn_enemy = 100; [oneof command]
+  .room.v1.DevKillAllEnemiesCommand dev_kill_all_enemies = 101; [oneof command]
+  .room.v1.DevKillLocalPlayerCommand dev_kill_local_player = 102; [oneof command]
+  .room.v1.DevApplyDemoStatusesCommand dev_apply_demo_statuses = 103; [oneof command]
+  .room.v1.DevGrantConsumablesCommand dev_grant_consumables = 104; [oneof command]
+  .room.v1.DevGrantEquipmentCommand dev_grant_equipment = 105; [oneof command]
+  .room.v1.DevGrantRunesCommand dev_grant_runes = 106; [oneof command]
+  .room.v1.DevGrantFloorKeysCommand dev_grant_floor_keys = 107; [oneof command]
+  .room.v1.DevGrantGoldCommand dev_grant_gold = 108; [oneof command]
+}
+message Snapshot {
+  uint32 tick = 1;
+  uint32 baseline_tick = 2;
+  uint32 last_processed_input_seq = 3;
+  repeated .game.v1.RoomEventEnvelope events = 4;
+}
+message RoomEventEnvelope {
+  .room.v1.PlayerStateChangedEvent player_state_changed = 1; [oneof event]
+  .room.v1.EnemyStateChangedEvent enemy_state_changed = 2; [oneof event]
+  .room.v1.ProjectileSpawnedEvent projectile_spawned = 3; [oneof event]
+  .room.v1.CoverStateChangedEvent cover_state_changed = 4; [oneof event]
+  .room.v1.InteractableStateChangedEvent interactable_state_changed = 5; [oneof event]
+  .room.v1.PlayerPrivateStateChangedEvent player_private_state_changed = 6; [oneof event]
+  .room.v1.PlayerDespawnedEvent player_despawned = 7; [oneof event]
+  .room.v1.EnemyDespawnedEvent enemy_despawned = 8; [oneof event]
+  .room.v1.ProjectileDespawnedEvent projectile_despawned = 9; [oneof event]
+  .room.v1.InteractableDespawnedEvent interactable_despawned = 10; [oneof event]
+  .room.v1.DamageDealtEvent damage_dealt = 11; [oneof event]
+  .room.v1.ProjectileOnHitEvent projectile_on_hit = 12; [oneof event]
+  .room.v1.GameplayEffectAppliedEvent gameplay_effect_applied = 13; [oneof event]
+  .room.v1.GameplayEffectExpiredEvent gameplay_effect_expired = 14; [oneof event]
+  .room.v1.AbilityActionChangedEvent ability_action_changed = 15; [oneof event]
+  .room.v1.AbilityActionEndedEvent ability_action_ended = 16; [oneof event]
+  .room.v1.RoomLayoutEvent room_layout = 17; [oneof event]
+  .room.v1.RoomChamberManifestEvent room_chamber_manifest = 18; [oneof event]
+  .room.v1.ChamberStateChangedEvent chamber_state_changed = 19; [oneof event]
+  .room.v1.LobbyPlayersChangedEvent lobby_players_changed = 20; [oneof event]
+  .room.v1.DungeonRunEndedEvent dungeon_run_ended = 21; [oneof event]
+  .room.v1.RoomCommandRejectedEvent room_command_rejected = 22; [oneof event]
+  .room.v1.LobbyRosterDeltaEvent lobby_roster_delta = 23; [oneof event]
+  .room.v1.CasinoReadyEvent casino_ready = 24; [oneof event]
+  .room.v1.CasinoRequestRejectedEvent casino_request_rejected = 25; [oneof event]
+  .room.v1.CasinoRouletteResultEvent casino_roulette_result = 26; [oneof event]
+  .room.v1.CasinoBlackjackStateEvent casino_blackjack_state = 27; [oneof event]
+  .room.v1.CasinoBlackjackViewEvent casino_blackjack_view = 28; [oneof event]
+  .room.v1.CasinoChipsExchangedEvent casino_chips_exchanged = 29; [oneof event]
+  .room.v1.RoomHeartbeatEvent room_heartbeat = 31; [oneof event]
+  .room.v1.QuestProgressedEvent quest_progressed = 32; [oneof event]
+  .room.v1.CasinoGoldRefreshedEvent casino_gold_refreshed = 33; [oneof event]
+  .room.v1.VaultReadyEvent vault_ready = 40; [oneof event]
+  .room.v1.VaultRequestRejectedEvent vault_request_rejected = 41; [oneof event]
+  .room.v1.VaultStateEvent vault_state = 42; [oneof event]
+  .room.v1.VaultSealedEvent vault_sealed = 43; [oneof event]
+  .room.v1.VaultNonceEvent vault_nonce = 44; [oneof event]
+  .room.v1.VaultDoorEvent vault_door = 45; [oneof event]
+  .room.v1.VaultRackEvent vault_rack = 46; [oneof event]
+  .room.v1.VaultBagEvent vault_bag = 47; [oneof event]
+  .room.v1.VaultUnlockEvent vault_unlock = 48; [oneof event]
+  .room.v1.VaultBoxEvent vault_box = 49; [oneof event]
+  .room.v1.SecretCommTrailPageEvent secret_comm_trail_page = 50; [oneof event]
+  .room.v1.SecretCommTransmitResultEvent secret_comm_transmit_result = 51; [oneof event]
+}
+// ===== game/v1/router.proto (package game.v1)
+enum AnnouncementAudience { ANNOUNCEMENT_AUDIENCE_UNSPECIFIED=0; ANNOUNCEMENT_AUDIENCE_EVERYONE=1; ANNOUNCEMENT_AUDIENCE_TEAM=2; ANNOUNCEMENT_AUDIENCE_PLAYER=3; }
+message InitServiceCommand {
+}
+message AnnouncementEvent {
+  string localization_key = 1;
+  string text = 2;
+  .game.v1.AnnouncementAudience audience = 3;
+}
+message ServiceCommandRejectedEvent {
+  string command_type = 1;
+  string fail_reason = 2;
+}
+// ===== mailbox/v1/mailbox_client.proto (package mailbox.v1)
+message AckRequest {
+  string message_id = 1;
+}
+message AckResponse {
+}
+message Payload {
+  string service = 1;
+  string method = 2;
+  bytes body = 3;
+  string req_id = 4;
+}
+message Position {
+  .google.protobuf.Timestamp created_at = 1;
+  string message_id = 2;
+}
+message ScanProgress {
+  .mailbox.v1.Position after = 1;
+  bool end = 2;
+}
+message FetchUser {
+  string user_id = 1;
+  string team_id = 2;
+  .mailbox.v1.ScanProgress personal = 3;
+  .mailbox.v1.ScanProgress broadcasts = 4;
+}
+message FetchPendingRequest {
+  repeated .mailbox.v1.FetchUser users = 1;
+}
+message PendingMessage {
+  string message_id = 1;
+  .mailbox.v1.Payload payload = 2;
+}
+message PendingPage {
+  repeated .mailbox.v1.PendingMessage messages = 1;
+  .mailbox.v1.ScanProgress personal = 2;
+  .mailbox.v1.ScanProgress broadcasts = 3;
+}
+message EntryError {
+  string code = 1;
+}
+message FetchUserResult {
+  string user_id = 1;
+  .mailbox.v1.PendingPage page = 2; [oneof result]
+  .mailbox.v1.EntryError error = 3; [oneof result]
+}
+message FetchPendingResponse {
+  repeated .mailbox.v1.FetchUserResult users = 1;
+}
+// ===== matchmaking/v1/matchmaking_client.proto (package matchmaking.v1)
+enum PartyState { PARTY_STATE_UNSPECIFIED=0; PARTY_STATE_FORMING=1; PARTY_STATE_QUEUED=2; }
+enum PlacementEntryKind { PLACEMENT_ENTRY_KIND_UNSPECIFIED=0; PLACEMENT_ENTRY_KIND_ROOM=1; PLACEMENT_ENTRY_KIND_DIRECT_OFFICE=2; }
+enum OfficeEntryState { OFFICE_ENTRY_STATE_UNSPECIFIED=0; OFFICE_ENTRY_STATE_AVAILABLE=1; OFFICE_ENTRY_STATE_CREATION_THROTTLED=2; OFFICE_ENTRY_STATE_CLEANUP_PENDING=3; }
+enum JoinState { JOIN_STATE_UNSPECIFIED=0; JOIN_STATE_QUEUED=1; JOIN_STATE_PLACED=2; JOIN_STATE_CANCELLED=3; JOIN_STATE_QUEUE_LOST=4; JOIN_STATE_RECONCILING=5; JOIN_STATE_ENDED=6; JOIN_STATE_CREATION_THROTTLED=7; JOIN_STATE_CLEANUP_PENDING=8; }
+message JoinRoomCommand {
+  string room_kind = 1;
+  string queue_generation = 2;
+}
+message CancelJoinCommand {
+  string join_req_id = 1;
+  string queue_generation = 2;
+}
+message GetJoinStatusCommand {
+  string join_req_id = 1;
+  string queue_generation = 2;
+}
+message GetQueueInfoCommand {
+  string room_kind = 1;
+}
+message GetQueueInfoResponse {
+  string queue_generation = 1;
+  int32 minimum_size = 2;
+  int32 preferred_size = 3;
+  .google.protobuf.Duration fill_wait = 4;
+}
+message CreatePartyCommand {
+  string room_kind = 1;
+}
+message JoinPartyCommand {
+  string room_kind = 1;
+}
+message LeavePartyCommand {
+  string party_id = 1;
+}
+message LeavePartyResponse {
+}
+message GetPartyCommand {
+  string party_id = 1;
+}
+message StartPartyCommand {
+  string party_id = 1;
+  string queue_generation = 2;
+}
+message PartyEvent {
+  string party_id = 1;
+  string room_kind = 2;
+  .matchmaking.v1.PartyState state = 3;
+  repeated string member_ids = 4;
+  int32 capacity = 5;
+  string join_req_id = 6;
+  string queue_generation = 7;
+  repeated string member_names = 8;
+}
+message GetActiveRoomCommand {
+}
+message LeaveRoomCommand {
+  string room_id = 1;
+}
+message DirectOfficeEntry {
+  string visit_id = 1;
+  string entry_url = 2;
+  string presence_url = 3;
+  string presence_token = 4;
+}
+message ActiveRoomEvent {
+  string room_id = 1;
+  string room_kind = 2;
+  string room_url = 3;
+  .room.v1.PlayerSpawn spawn = 4;
+  .google.protobuf.Timestamp placed_at = 5;
+  .matchmaking.v1.PlacementEntryKind entry_kind = 6;
+  .matchmaking.v1.DirectOfficeEntry direct_office = 7;
+  .matchmaking.v1.OfficeEntryState office_state = 8;
+  uint32 retry_after_seconds = 9;
+}
+message QueueRosterChangedEvent {
+  repeated string peer_ids = 1;
+  int32 roster_size = 2;
+}
+message JoinRoomResponse {
+  .matchmaking.v1.JoinState state = 1;
+  .matchmaking.v1.ActiveRoomEvent active_room = 2;
+  .matchmaking.v1.QueueRosterChangedEvent queue_roster = 3;
+  string queue_generation = 4;
+}
+// ===== matchmaking/v1/matchmaking_dev.proto (package matchmaking.v1)
+message DevForceStartRosterCommand {
+}
+// ===== metadata/v1/metadata_client.proto (package metadata.v1)
+enum LeaderboardMetric { LEADERBOARD_METRIC_UNSPECIFIED=0; LEADERBOARD_METRIC_XP=1; LEADERBOARD_METRIC_LEVEL=2; LEADERBOARD_METRIC_DEEPEST_FLOOR=3; LEADERBOARD_METRIC_CURRENCY=4; }
+enum QuestStatus { QUEST_STATUS_UNSPECIFIED=0; QUEST_STATUS_ACTIVE=1; QUEST_STATUS_COMPLETED=2; }
+message GetLeaderboardRequest {
+  .metadata.v1.LeaderboardMetric rank_by = 1;
+  string currency = 2;
+}
+message LeaderboardEntry {
+  message CurrenciesEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  string player_id = 1;
+  string account_name = 2;
+  int32 rank = 3;
+  int32 xp = 4;
+  int32 level = 5;
+  int32 deepest_floor = 6;
+  repeated .metadata.v1.LeaderboardEntry.CurrenciesEntry currencies = 7;
+}
+message GetLeaderboardResponse {
+  .metadata.v1.LeaderboardMetric rank_by = 1;
+  string currency = 2;
+  repeated .metadata.v1.LeaderboardEntry entries = 3;
+  .metadata.v1.LeaderboardEntry caller_entry = 4;
+}
+message GetMyProfileRequest {
+}
+message GetMyProfileResponse {
+  message CurrenciesEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message AttributeRanksEntry {
+    int32 key = 1;
+    int32 value = 2;
+  }
+  string player_id = 1;
+  string account_name = 2;
+  int32 xp = 3;
+  repeated .metadata.v1.GetMyProfileResponse.CurrenciesEntry currencies = 4;
+  repeated .metadata.v1.GetMyProfileResponse.AttributeRanksEntry attribute_ranks = 5;
+}
+message ListAndClaimQuestsRequest {
+}
+message ListAndClaimQuestsResponse {
+  repeated .metadata.v1.QuestView quests = 1;
+  int64 revision = 2;
+}
+message QuestView {
+  message TextEntry {
+    string key = 1;
+    .metadata.v1.QuestText value = 2;
+  }
+  string quest_id = 1;
+  .metadata.v1.QuestStatus status = 2;
+  repeated .metadata.v1.QuestView.TextEntry text = 3;
+  repeated .metadata.v1.QuestStepView steps = 4;
+  .metadata.v1.QuestReward reward = 5;
+}
+message QuestText {
+  string title = 1;
+  string body = 2;
+}
+message QuestStepView {
+  message TextEntry {
+    string key = 1;
+    string value = 2;
+  }
+  string step_id = 1;
+  bool done = 2;
+  repeated .metadata.v1.QuestStepView.TextEntry text = 3;
+}
+message QuestReward {
+  string achievement_id = 1;
+  bool achievement_granted = 2;
+}
+message GetMervynStoryRequest {
+}
+message GetMervynStoryResponse {
+  message TextEntry {
+    string key = 1;
+    string value = 2;
+  }
+  int32 id = 1;
+  repeated .metadata.v1.GetMervynStoryResponse.TextEntry text = 2;
+}
+// ===== room/v1/casino.proto (package room.v1)
+message CasinoRoulettePlayCommand {
+  string operation_id = 1;
+  int32 stake_chips = 2;
+  .common.v1.RouletteBetType bet_type = 3;
+  int32 selected_number = 4; [oneof _selected_number]
+}
+message CasinoBlackjackStartCommand {
+  string operation_id = 1;
+  int32 stake_chips = 2;
+}
+message CasinoBlackjackHitCommand {
+  string operation_id = 1;
+}
+message CasinoBlackjackStandCommand {
+  string operation_id = 1;
+}
+message CasinoBlackjackViewCommand {
+  string operation_id = 1;
+  string view_id = 2;
+}
+message CasinoChipsExchangeCommand {
+  string operation_id = 1;
+  int32 gold_amount = 2;
+}
+message CasinoReadyEvent {
+  bool wagering_available = 1;
+  int32 challenge_chips = 2;
+  int32 minimum_stake_chips = 3;
+  int32 maximum_stake_chips = 4;
+  int32 chips_per_gold = 5;
+}
+message CasinoRequestRejectedEvent {
+  string operation_id = 1;
+  string error_code = 2;
+}
+message CasinoRouletteResultEvent {
+  string operation_id = 1;
+  .common.v1.RouletteBetType bet_type = 2;
+  int32 selected_number = 3;
+  int32 winning_number = 4;
+  int32 stake_chips = 5;
+  int32 payout_chips = 6;
+  int32 challenge_chips = 7;
+  uint64 round_sequence = 8;
+  string fairness_code = 9;
+}
+message BlackjackCard {
+  int32 rank = 1;
+  int32 suit = 2;
+}
+message CasinoBlackjackStateEvent {
+  string operation_id = 1;
+  string round_id = 2;
+  .common.v1.BlackjackPhase phase = 3;
+  repeated .room.v1.BlackjackCard player_cards = 4;
+  repeated .room.v1.BlackjackCard dealer_cards = 5;
+  int32 player_value = 6;
+  int32 dealer_value = 7;
+  int32 stake_chips = 8;
+  int32 payout_chips = 9;
+  int32 challenge_chips = 10;
+  string dealer_view_id = 11;
+}
+message CasinoBlackjackViewEvent {
+  string operation_id = 1;
+  string view_id = 2;
+  string round_id = 3;
+  repeated .room.v1.BlackjackCard dealer_cards = 4;
+  repeated .room.v1.BlackjackCard next_cards = 5;
+}
+message CasinoChipsExchangedEvent {
+  string operation_id = 1;
+  int32 gold_spent = 2;
+  int32 chips_granted = 3;
+  int32 gold_balance = 4;
+  int32 challenge_chips = 5;
+  int32 chips_per_gold = 6;
+}
+message CasinoGoldRefreshedEvent {
+  int32 gold_balance = 1;
+}
+// ===== room/v1/commands.proto (package room.v1)
+message InitRoomCommand {
+}
+message MoveCommand {
+  .common.v1.Vec2 direction = 1;
+  .common.v1.Vec2 aim_direction = 2;
+}
+message AimCommand {
+  .common.v1.Vec2 aim_direction = 1;
+}
+message FireCommand {
+  .common.v1.Vec2 aim_direction = 1;
+}
+message ReloadCommand {
+}
+message UseAbilityCommand {
+  string ability_id = 1;
+  .common.v1.Vec2 direction = 2;
+  .common.v1.Vec2 aim_direction = 3;
+}
+message SwapSlotsCommand {
+  .common.v1.SlotRef slot_a = 1;
+  .common.v1.SlotRef slot_b = 2;
+}
+message SplitStackCommand {
+  .common.v1.SlotRef slot = 1;
+  int32 count = 2;
+}
+message MergeStacksCommand {
+  .common.v1.SlotRef from = 1;
+  .common.v1.SlotRef to = 2;
+}
+message DiscardItemCommand {
+  string item_instance_id = 1;
+}
+message UseConsumableCommand {
+  string item_instance_id = 1;
+}
+message ConfirmRunEndCommand {
+}
+message FleeRunCommand {
+}
+message InteractCommand {
+  string interact_host_id = 1;
+}
+message DescendFloorCommand {
+  int32 target_floor = 1;
+}
+message BuyAttributeRankCommand {
+  .common.v1.AttributeId attribute = 1;
+}
+message SellItemCommand {
+  int32 slot = 1;
+  int32 quantity = 2;
+  string shop_id = 3;
+}
+message BuyItemCommand {
+  string item_listing_id = 1;
+  int32 quantity = 2;
+  int32 expected_price = 3;
+  string shop_id = 4;
+}
+message RefreshShopCommand {
+  int32 expected_price = 1;
+  string shop_id = 2;
+}
+message EnchantItemCommand {
+  string item_instance_id = 1;
+  string enchantment_id = 2;
+  int32 slot_index = 3;
+}
+message ClaimStarterPistolCommand {
+}
+message UnlockSkillNodeCommand {
+  string node_id = 1;
+  int32 variant = 2;
+}
+message SetSkillVariantCommand {
+  string node_id = 1;
+  int32 variant = 2;
+}
+message UpgradeSkillNodeCommand {
+  string node_id = 1;
+}
+message RespecSkillsCommand {
+}
+message UpgradeItemCommand {
+  string item_instance_id = 1;
+  int32 expected_level = 2;
+}
+message HeartbeatEchoCommand {
+  int64 server_time_ms = 1;
+}
+message StartCraftCommand {
+  string recipe_id = 1;
+}
+message CollectCraftCommand {
+  string job_id = 1;
+}
+message EnterKonamiCodeCommand {
+}
+// ===== room/v1/events.proto (package room.v1)
+message PlayerStateChangedEvent {
+  .room.v1.PlayerState state = 1;
+  uint64 changed_fields = 2;
+}
+message EnemyStateChangedEvent {
+  .room.v1.EnemyState state = 1;
+  uint64 changed_fields = 2;
+}
+message ProjectileSpawnedEvent {
+  .room.v1.ProjectileState state = 1;
+}
+message CoverStateChangedEvent {
+  .room.v1.CoverState state = 1;
+  uint64 changed_fields = 2;
+}
+message InteractableStateChangedEvent {
+  .room.v1.InteractableState state = 1;
+  uint64 changed_fields = 2;
+}
+message PlayerPrivateStateChangedEvent {
+  .room.v1.PlayerPrivateState state = 1;
+  uint64 changed_fields = 2;
+}
+message PlayerDespawnedEvent {
+  string player_id = 1;
+}
+message InteractableDespawnedEvent {
+  string interactable_id = 1;
+}
+message EnemyDespawnedEvent {
+  string enemy_id = 1;
+  .common.v1.EnemyDespawnReason reason = 2;
+}
+message ProjectileDespawnedEvent {
+  string projectile_id = 1;
+  .common.v1.ProjectileDespawnReason reason = 2;
+  .common.v1.Vec2 despawn_position = 3;
+}
+message DamageDealtEvent {
+  string attacker_id = 1;
+  string victim_id = 2;
+  float raw_damage = 3;
+  float final_damage = 4;
+  bool is_crit = 5;
+  .common.v1.Vec2 impact_point = 6;
+  .common.v1.Vec2 knockback_dir = 7;
+  .common.v1.DamageSource source = 8;
+}
+message ProjectileOnHitEvent {
+  string projectile_id = 1;
+  .common.v1.Vec2 impact_point = 2;
+  .common.v1.Vec2 chain_to = 3;
+  bool blasted = 4;
+  .common.v1.Vec2 bounce_dir = 5;
+}
+message GameplayEffectAppliedEvent {
+  string entity_id = 1;
+  string status_id = 2;
+  int32 stack_count = 3;
+  float duration_remaining = 4;
+}
+message GameplayEffectExpiredEvent {
+  string entity_id = 1;
+  string status_id = 2;
+}
+message AbilityActionChangedEvent {
+  string owner_id = 1;
+  string ability_id = 2;
+  .room.v1.AbilityActionState state = 3;
+}
+message AbilityActionEndedEvent {
+  string owner_id = 1;
+  string ability_id = 2;
+}
+message RoomLayoutEvent {
+  string room_id = 1;
+  int32 width = 2;
+  int32 height = 3;
+  bytes not_wall_mask = 4;
+  .common.v1.Vec2 spawn_anchor = 5;
+  int32 seed = 6;
+  int32 floor_index = 7;
+  string theme_id = 8;
+  repeated .room.v1.ThemeRegion theme_regions = 9;
+  repeated .room.v1.OverlayCell surfaces = 10;
+  repeated .room.v1.OverlayCell decor = 11;
+}
+message RoomChamberManifestEvent {
+  string room_id = 1;
+  repeated .room.v1.ChamberDto chambers = 2;
+  repeated .room.v1.DoorDto doors = 3;
+  int32 floor_index = 4;
+}
+message ChamberStateChangedEvent {
+  string chamber_id = 1;
+  .common.v1.ChamberStatus new_status = 2;
+}
+message LobbyPlayersChangedEvent {
+  repeated .room.v1.LobbyPlayerData roster = 1;
+}
+message LobbyRosterDeltaEvent {
+  repeated .room.v1.LobbyPeerEntered entered = 1;
+  repeated int32 left_slots = 2;
+  repeated .room.v1.LobbyPeerMoved moved = 3;
+}
+message LobbyPeerEntered {
+  int32 slot = 1;
+  string player_id = 2;
+  string display_name = 3;
+  int32 x = 4;
+  int32 y = 5;
+  int32 aim = 6;
+}
+message LobbyPeerMoved {
+  int32 slot = 1;
+  int32 x = 2;
+  int32 y = 3;
+  int32 aim = 4;
+}
+message DungeonRunEndedEvent {
+  message EarnedEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message BankedEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  .common.v1.LeaveReason reason = 1;
+  int32 floor = 2;
+  repeated .room.v1.DungeonRunEndedEvent.EarnedEntry earned = 3;
+  repeated .room.v1.DungeonRunEndedEvent.BankedEntry banked = 4;
+  float retention_factor = 5;
+  bool dropped_bag = 6;
+  int32 dropped_item_count = 7;
+  bool dropped_equipment = 8;
+}
+message RoomCommandRejectedEvent {
+  string command_type = 1;
+  string fail_reason = 2;
+}
+message RoomHeartbeatEvent {
+  int64 server_time_ms = 1;
+  uint32 round_trip_ms = 2; [oneof _round_trip_ms]
+}
+message QuestProgressedEvent {
+  repeated string completed_quest_ids = 1;
+}
+// ===== room/v1/room_dev.proto (package room.v1)
+message DevSpawnEnemyCommand {
+  string id = 1;
+  .common.v1.Vec2 position = 2;
+}
+message DevKillAllEnemiesCommand {
+}
+message DevKillLocalPlayerCommand {
+}
+message DevApplyDemoStatusesCommand {
+}
+message DevGrantConsumablesCommand {
+}
+message DevGrantEquipmentCommand {
+}
+message DevGrantRunesCommand {
+}
+message DevGrantFloorKeysCommand {
+}
+message DevGrantGoldCommand {
+  int32 amount = 1;
+}
+// ===== room/v1/secret_comm.proto (package room.v1)
+message SecretCommTrailPageCommand {
+  string operation_id = 1;
+  uint32 first_entry = 2;
+}
+message SecretCommTransmitCommand {
+  string operation_id = 1;
+  bytes submission = 2;
+}
+message SecretCommTrailPageEvent {
+  string operation_id = 1;
+  uint32 first_entry = 2;
+  uint32 trail_length = 3;
+  bytes entries = 4;
+}
+message SecretCommTransmitResultEvent {
+  string operation_id = 1;
+  bool accepted = 2;
+}
+// ===== room/v1/state.proto (package room.v1)
+message AbilityState {
+  string ability_id = 1;
+  bool is_available = 2;
+}
+message PlayerState {
+  string player_id = 1;
+  .common.v1.Vec2 position = 2;
+  .common.v1.Vec2 aim_direction = 3;
+  float health = 4;
+  float max_health = 5;
+  bool is_alive = 6;
+  int32 level = 7;
+  repeated .room.v1.AbilityState abilities = 8;
+  float walk_speed = 9; [oneof _walk_speed]
+  float dodge_speed = 10; [oneof _dodge_speed]
+  float dodge_duration = 11; [oneof _dodge_duration]
+  bool armed = 12; [oneof _armed]
+}
+message EnemyState {
+  string enemy_id = 1;
+  string id = 2;
+  .common.v1.Vec2 position = 3;
+  .common.v1.Vec2 aim_direction = 4;
+  float health = 5;
+  float max_health = 6;
+  .common.v1.EnemyActionState action_state = 7;
+  int32 current_phase_index = 8;
+}
+message ProjectileState {
+  string projectile_id = 1;
+  string kind = 2;
+  string owner_entity_id = 3;
+  .common.v1.Vec2 position = 4;
+  .common.v1.Vec2 direction = 5;
+  float speed = 6;
+  float blast_radius = 7;
+  float homing_turn_rate_deg = 8;
+  float homing_radius = 9;
+}
+message CoverState {
+  string cover_id = 1;
+  string id = 2;
+  .common.v1.Vec2 position = 3;
+  float hp = 4;
+  float max_hp = 5;
+  bool is_flipped = 6;
+  .common.v1.RectInt footprint = 7;
+}
+message InteractableState {
+  string interactable_id = 1;
+  string spec_id = 2;
+  string prompt_key = 3;
+  string item_id = 4;
+  int32 stack_count = 5;
+  .common.v1.Vec2 position = 6;
+  .common.v1.Vec2 half_extents = 7;
+  float interact_range = 8;
+  bool is_active = 9;
+  float countdown_seconds = 10;
+  string display_text = 11;
+}
+message AbilityActionState {
+  float disc_radius = 1;
+  float windup_seconds = 2;
+  bool has_beam = 3;
+  .common.v1.Vec2 beam_direction = 4;
+  float beam_length = 5;
+  float beam_width = 6;
+  float beam_duration_seconds = 7;
+  float beam_angular_velocity_deg = 8;
+  float elapsed_seconds = 9;
+  float beam_twin_offset_deg = 10;
+  bool has_zone = 11;
+  .common.v1.RectInt zone_area = 12;
+  int32 zone_safe_count = 13;
+  float zone_safe_ring_radius = 14;
+  float zone_start_radius = 15;
+  float zone_end_radius = 16;
+  float zone_warn_seconds = 17;
+  float zone_shrink_seconds = 18;
+  float zone_hold_seconds = 19;
+  float aim_line_length = 20;
+  .common.v1.Vec2 lob_target = 21;
+  float lob_radius = 22;
+  float lob_fuse_seconds = 23;
+}
+message InventoryItemState {
+  int32 slot = 1;
+  string item_instance_id = 2;
+  string item_id = 3;
+  int32 stack_count = 4;
+  int32 upgrade_level = 5;
+  repeated string enchantment_ids = 6;
+  int32 enchant_slots = 7;
+  int32 max_stack = 8;
+  int32 unit_sale_price = 9;
+  .room.v1.UpgradeOffer upgrade = 10;
+}
+message EquipmentState {
+  .common.v1.EquipSlot slot = 1;
+  string item_instance_id = 2;
+  string item_id = 3;
+  int32 upgrade_level = 4;
+  repeated string enchantment_ids = 5;
+  int32 enchant_slots = 6;
+  .room.v1.UpgradeOffer upgrade = 7;
+}
+message UpgradeOffer {
+  int32 cap = 1;
+  int32 gold = 2;
+  string material_item_id = 3;
+  int32 material_count = 4;
+  string breakthrough_item_id = 5;
+}
+message PlayerResolvedStats {
+  float max_hp = 1;
+  float damage_multiplier = 2;
+  float armor = 3;
+  float move_speed = 4;
+  float crit_chance = 5;
+  float crit_multiplier = 6;
+  float dodge_cooldown = 7;
+}
+message PlayerPrivateState {
+  message CarriedEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message WalletEntry {
+    string key = 1;
+    int32 value = 2;
+  }
+  message AttributeRanksEntry {
+    int32 key = 1;
+    int32 value = 2;
+  }
+  string player_id = 1;
+  int32 xp = 2;
+  int32 skill_points = 3;
+  repeated .room.v1.PlayerPrivateState.CarriedEntry carried = 4;
+  repeated .room.v1.PlayerPrivateState.WalletEntry wallet = 5;
+  repeated .room.v1.InventoryItemState inventory = 6;
+  repeated .room.v1.EquipmentState equipment = 7;
+  .room.v1.PlayerResolvedStats resolved_stats = 8;
+  repeated .room.v1.PlayerPrivateState.AttributeRanksEntry attribute_ranks = 9;
+  repeated .room.v1.InventoryItemState stash = 10;
+  int32 ammo_remaining = 11;
+  int32 max_ammo = 12;
+  string account_name = 13;
+  bool starter_pistol_claimed = 14; [oneof _starter_pistol_claimed]
+  repeated .room.v1.SkillNodeState skill_nodes = 15;
+  repeated .room.v1.ShopListing shop_listings = 16;
+  repeated .room.v1.ShopInfo shops = 18;
+  int32 hunger_remaining_ms = 19; [oneof _hunger_remaining_ms]
+  .room.v1.CraftingState crafting = 20;
+  int32 hunger_max_ms = 21; [oneof _hunger_max_ms]
+}
+message CraftJobState {
+  string job_id = 1;
+  string recipe_id = 2;
+  int64 ready_at_unix_ms = 3;
+  string output_item_id = 4;
+  int32 output_count = 5;
+}
+message CraftingState {
+  .room.v1.CraftJobState job = 1;
+  int64 server_unix_ms = 2;
+}
+message ShopInfo {
+  string shop_id = 1;
+  int32 refresh_price = 2; [oneof _refresh_price]
+  repeated .common.v1.ItemType buys = 3;
+}
+message SkillNodeState {
+  string node_id = 1;
+  int32 variant = 2;
+  int32 level = 3;
+}
+message ShopListing {
+  string item_listing_id = 1;
+  string item_id = 2;
+  int32 stack_count = 3;
+  int32 price = 4;
+  bool secret = 5;
+  string shop_id = 6;
+}
+message PlayerSpawn {
+  string player_id = 1;
+  .common.v1.Vec2 position = 2;
+}
+message LobbyPlayerData {
+  string player_id = 1;
+  string display_name = 2;
+  .common.v1.Vec2 position = 3;
+  .common.v1.Vec2 aim_direction = 4;
+}
+message ThemeRegion {
+  .common.v1.RectInt bounds = 1;
+  string theme_id = 2;
+}
+message ChamberDto {
+  string chamber_id = 1;
+  .common.v1.RectInt world_bounds = 2;
+  int32 chamber_type = 3;
+  .common.v1.ChamberStatus initial_status = 4;
+}
+message DoorDto {
+  .common.v1.Vec2 position = 1;
+  bool is_vertical = 2;
+  bool is_boss_gate = 3;
+}
+message OverlayCell {
+  int32 x = 1;
+  int32 y = 2;
+  string id = 3;
+}
+// ===== room/v1/vault.proto (package room.v1)
+message VaultItemStack {
+  string item_id = 1;
+  int32 count = 2;
+  int32 upgrade_level = 3;
+  repeated string enchantment_ids = 4;
+}
+message VaultStartCommand {
+  string operation_id = 1;
+  .room.v1.VaultItemStack deposit = 2;
+}
+message VaultPlaceCommand {
+  string operation_id = 1;
+  int32 x = 2;
+  int32 y = 3;
+}
+message VaultKnockCommand {
+  string operation_id = 1;
+  string ledger_id = 2;
+}
+message VaultPassCommand {
+  string operation_id = 1;
+  string ledger_id = 2;
+  string nonce = 3;
+  string bearer = 4;
+  string signature = 5;
+}
+message VaultRackCommand {
+  string operation_id = 1;
+  int64 page = 2;
+}
+message VaultBagCommand {
+  string operation_id = 1;
+}
+message VaultUnlockCommand {
+  string operation_id = 1;
+  string ledger_id = 2;
+}
+message VaultCollectCommand {
+  string operation_id = 1;
+  string ledger_id = 2;
+}
+message VaultCell {
+  int32 x = 1;
+  int32 y = 2;
+}
+message VaultText {
+  string en = 1;
+  string zh_hant = 2;
+  string zh_hans = 3;
+}
+message VaultAchievementText {
+  .room.v1.VaultText name = 1;
+  .room.v1.VaultText description = 2;
+}
+message VaultLedgerSummary {
+  string ledger_id = 1;
+  string sealed_at = 2;
+  string locked_by = 3;
+  .room.v1.VaultItemStack deposit = 4;
+  string contents = 5;
+}
+message VaultReadyEvent {
+  int32 stage = 1;
+  string forge_code = 2;
+  int32 board_size = 3;
+  int32 threshold = 4;
+  repeated .room.v1.VaultLedgerSummary ledgers = 5;
+  repeated string forging = 6;
+  int32 start_fee_gold = 7;
+  bool fee_available = 8;
+  int32 retry_after_s = 9;
+  int32 unlock_fee_gold = 10;
+}
+message VaultRequestRejectedEvent {
+  string operation_id = 1;
+  string error_code = 2;
+  int32 retry_after_s = 3;
+  int32 start_fee_gold = 4;
+  int32 gold_balance = 5;
+}
+message VaultStateEvent {
+  string operation_id = 1;
+  string game_id = 2;
+  int32 stage = 3;
+  string board = 4;
+  string to_move = 5;
+  .room.v1.VaultCell blocked = 6;
+  .room.v1.VaultCell last_move = 7;
+  int32 move_count = 8;
+  string outcome = 9;
+  string achievement_id = 10;
+  int32 fee_paid_gold = 11;
+  int32 gold_balance = 12;
+  .room.v1.VaultItemStack deposit = 13;
+}
+message VaultSealedEvent {
+  string game_id = 1;
+  string ledger_id = 2;
+  string n1 = 3;
+  string n2 = 4;
+  int32 e = 5;
+  string game_record = 6;
+  string seal_sig = 7;
+  uint64 counter = 8;
+}
+message VaultIssuedPass {
+  string bearer = 1;
+  string signature = 2;
+}
+message VaultNonceEvent {
+  string operation_id = 1;
+  string ledger_id = 2;
+  string nonce = 3;
+  string nonce_sig = 4;
+  int32 expires_in_s = 5;
+  .room.v1.VaultIssuedPass issued_pass = 6;
+}
+message VaultDoorEvent {
+  string operation_id = 1;
+  string ledger_id = 2;
+  string result = 3;
+  string owner_id = 4;
+  string n1 = 5;
+  string n2 = 6;
+  int32 e = 7;
+  string game_record = 8;
+  string seal_sig = 9;
+  uint64 counter = 10;
+  string locked_by = 11;
+  .room.v1.VaultText message = 12;
+  string achievement_id = 13;
+  .room.v1.VaultAchievementText achievement_text = 14;
+}
+message VaultRackBox {
+  string ledger_id = 1;
+  string owner_id = 2;
+  string sealed_at = 3;
+  string locked_by = 4;
+  bool mine = 5;
+  .room.v1.VaultItemStack deposit = 6;
+  string contents = 7;
+}
+message VaultRackEvent {
+  string operation_id = 1;
+  int64 page = 2;
+  int32 page_size = 3;
+  int64 total = 4;
+  repeated .room.v1.VaultRackBox boxes = 5;
+}
+message VaultBagStack {
+  string item_id = 1;
+  int32 count = 2;
+  int32 max_stack = 3;
+  int32 upgrade_level = 4;
+  repeated string enchantment_ids = 5;
+}
+message VaultBagEvent {
+  string operation_id = 1;
+  bool available = 2;
+  int32 gold = 3;
+  repeated .room.v1.VaultBagStack items = 4;
+}
+message VaultUnlockEvent {
+  string operation_id = 1;
+  string ledger_id = 2;
+  string nonce = 3;
+  string nonce_sig = 4;
+  string bearer = 5;
+  string signature = 6;
+  int32 gold_paid = 7;
+  int32 gold_balance = 8;
+}
+message VaultBoxEvent {
+  string operation_id = 1;
+  string ledger_id = 2;
+  .room.v1.VaultItemStack deposit = 3;
+  string contents = 4;
+}

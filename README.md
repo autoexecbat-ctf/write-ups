@@ -9,7 +9,9 @@
 
 | Name | Category | Points | Write-up |
 | --- | --- | --- | --- |
+| Bigger on the Inside | N/A | N/A | [Link](hkcertctf2026quals/bigger-on-the-inside/) |
 | Quishing | N/A | N/A | [Link](hkcertctf2026quals/quishing/) |
+| Attack the CMS | N/A | N/A | [Link](hkcertctf2026quals/attack-the-cms/) |
 
 ## POlyU x NuttyShell Cybersecurity CTF 2026
 

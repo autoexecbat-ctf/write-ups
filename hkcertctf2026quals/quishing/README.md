@@ -32,13 +32,13 @@ AI suggested two ideas:
 - **Swipe gestures** - Kiosks running on tablets usually have an OS-level task switcher reachable by a swipe from the edge of the screen. The kiosk app itself is drawn on a 480×800 canvas (phone-sized), so swiping up from the very bottom edge is worth trying — exactly like exiting a kiosk-mode app on a real Android tablet.
 - **Tapping around on every screen** - including areas that look blank, to see if there are any "hidden"/debug UI elements the attract screen doesn't advertise.
 
-Doing the upward swipe from near the bottom edge dragging upward shows something like an app switcher as seen in phones.
+Immediately after it is found that doing the upward swipe from near the bottom edge dragging upward shows something like an app switcher as seen in phones.
 
 And one of the "app" is "Setting / QR link". Tapping it shows a screen where we can edit the link that will be shown on screen.
 
-As the link is set with a different one, we found the achievement "Quishing" is unlocked, with the description "Swap the kiosk's QR code for a link it should never show.", as the link has been changed through Setting.
+As the link is set with a different URL, we found the achievement "Quishing" is unlocked, with the description "Swap the kiosk's QR code for a link it should never show.", as the link has been changed through Setting.
 
-## Reference: reproducing script
+## Script to reproduce
 
 The kiosk is a server-rendered canvas driven over a WebSocket. User sends UI events (`tap`, `swipe`, `text`) to the server, and the server responds with JSON describing what to draw (text labels, image names, rectangles) plus some screen states (`screen`, `link_box`, `link_value`...).
 
